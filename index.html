@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -49,6 +50,7 @@
             background-color: #ffffff;
         }
 
+        /* плавный скролл и закрепление */
         .first-screen {
             position: relative;
             width: 100%;
@@ -408,14 +410,14 @@
             transition: opacity 0.9s cubic-bezier(0.25, 0.8, 0.4, 1), transform 0.9s cubic-bezier(0.25, 0.8, 0.4, 1);
         }
         .rsvp-screen.visible { opacity: 1; transform: translateY(0); }
-        .rsvp-container { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 40px 30px; box-shadow: none; }
+        .rsvp-container { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 40px 30px; box-shadow: none; text-align: left; }
         .rsvp-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 20px; text-align: center; }
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: #1a1a1a; }
-        .form-group input, .form-group select { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Montserrat', sans-serif; font-size: 16px; background: transparent; transition: border 0.2s ease; outline: none; color: #1a1a1a; }
+        .form-group { margin-bottom: 25px; text-align: left; }
+        .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: #1a1a1a; text-align: left; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Montserrat', sans-serif; font-size: 16px; background: transparent; transition: border 0.2s ease; outline: none; color: #1a1a1a; text-align: left; }
         .form-group select option { color: #1a1a1a; background: #ffffff; }
         .form-group input:focus, .form-group select:focus { border-bottom-color: #1a1a1a; }
-        .radio-group { display: flex; gap: 25px; margin-top: 8px; flex-wrap: wrap; }
+        .radio-group { display: flex; gap: 25px; margin-top: 8px; flex-wrap: wrap; justify-content: flex-start; }
         .radio-group label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; color: #1a1a1a; }
         .radio-group input { width: auto; margin: 0; accent-color: #1a1a1a; }
         .submit-btn { display: block; width: 100%; background: #1a1a1a; color: white; border: none; padding: 14px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
@@ -434,7 +436,7 @@
         .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; font-weight: 400; }
         .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 50px; text-transform: none; }
         .contacts-list { display: flex; flex-direction: column; gap: 28px; margin-bottom: 45px; }
-        .contact-row { display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 0.3px; }
+        .contact-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 0.3px; flex-direction: column; }
         .contact-role { font-weight: 500; color: #1a1a1a; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; }
         .contact-info a { color: #333; text-decoration: none; transition: color 0.2s; }
         .contact-info a:hover { color: #6B705C; }
@@ -536,7 +538,6 @@
 <div class="dresscode-screen" id="dresscodeScreen">
     <div class="dresscode-container">
         <h1 class="dresscode-main-title" id="dresscodeMainTitle">Дресс-код</h1>
-        
         <p class="dresscode-description" id="dresscodeDescription">Строгих правил нет — только красивые и элегантные образы!<br>Милые дамы, давайте оставим белый цвет для невесты.<br>Уважаемые джентльмены, помните: шорты и футболки в этот день в отпуске.</p>
     </div>
 </div>
@@ -610,7 +611,7 @@
 <div class="contacts-screen" id="contactsScreen">
     <div class="contacts-container">
         <h2 class="contacts-title">Контакты</h2>
-        <div class="contacts-subtitle">остались вопросы? Мы на связи</div>
+        <div class="contacts-subtitle">остались вопросы?<br>Свяжитесь с нашим организатором</div>
         <div class="contacts-list">
             <div class="contact-row">
                 <span class="contact-role">Наш свадебный организатор</span>
@@ -624,24 +625,27 @@
 
 <script>
     (function() {
-        // Плавный скролл при первом скролле
+        // мягкий скролл между первым и вторым блоком: прокрутка на величину одного колеса, не мгновенный скролл страницы
         let scrollTriggerUsed = false;
         const secondScreen = document.getElementById('secondScreen');
-        function smoothScrollToSecond() {
+        function gentleScrollToSecond() {
             if (!scrollTriggerUsed && secondScreen) {
                 scrollTriggerUsed = true;
+                // плавная прокрутка до начала второго экрана с учётом стандартного поведения
                 secondScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
+        // Обработчик колеса мыши: если скролл вниз и ещё не активирован
         window.addEventListener('wheel', function onFirstWheel(e) {
             if (!scrollTriggerUsed && e.deltaY > 0) {
-                smoothScrollToSecond();
+                gentleScrollToSecond();
                 window.removeEventListener('wheel', onFirstWheel);
+                // предотвращаем скачок всей страницы, но оставляем стандартную прокрутку в рамках плавности
             }
-        }, { once: true });
+        }, { once: false, passive: true });
         window.addEventListener('touchmove', function onFirstTouch(e) {
             if (!scrollTriggerUsed && e.touches && e.touches.length) {
-                smoothScrollToSecond();
+                gentleScrollToSecond();
                 window.removeEventListener('touchmove', onFirstTouch);
             }
         }, { once: true });
