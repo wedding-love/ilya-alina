@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -50,7 +49,6 @@
             background-color: #ffffff;
         }
 
-        /* плавный скролл и закрепление */
         .first-screen {
             position: relative;
             width: 100%;
@@ -163,7 +161,7 @@
             border-radius: 0px;
             font-size: 0.7rem;
             text-transform: uppercase;
-            cursor: default;
+            cursor: pointer;
             white-space: nowrap;
             z-index: 20;
             font-family: 'Montserrat', sans-serif;
@@ -171,8 +169,14 @@
             letter-spacing: 1.2px;
             backdrop-filter: blur(2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: background 0.2s ease, transform 0.2s ease;
             border: none;
-            pointer-events: none;
+        }
+
+        .scroll-down:hover {
+            background: white;
+            transform: translateX(-50%) scale(1.02);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
         }
 
         .arrow-icon-svg { margin-left: 8px; width: 11px; height: 11px; stroke: #1a1a1a; }
@@ -434,12 +438,36 @@
         .contacts-screen.visible { opacity: 1; transform: translateY(0); }
         .contacts-container { max-width: 450px; margin: 0 auto; text-align: center; }
         .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; font-weight: 400; }
-        .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 50px; text-transform: none; }
+        .contacts-subtitle { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 13px; 
+            font-weight: 300; 
+            letter-spacing: 1px; 
+            color: #777; 
+            margin-bottom: 35px; 
+            text-transform: none;
+            line-height: 1.5;
+        }
         .contacts-list { display: flex; flex-direction: column; gap: 28px; margin-bottom: 45px; }
-        .contact-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 0.3px; flex-direction: column; }
+        .contact-row { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 8px 15px; 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 14px; 
+            letter-spacing: 0.3px; 
+            flex-direction: column; 
+        }
         .contact-role { font-weight: 500; color: #1a1a1a; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; }
         .contact-info a { color: #333; text-decoration: none; transition: color 0.2s; }
         .contact-info a:hover { color: #6B705C; }
+        .contact-telegram { 
+            font-size: 12px; 
+            color: #555; 
+            margin-top: 4px;
+        }
         .contacts-divider { width: 1px; height: 50px; background-color: #d0d0d0; margin: 0 auto 35px; }
         .contacts-copyright { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1.5px; color: #aaa; text-transform: uppercase; }
 
@@ -615,7 +643,8 @@
         <div class="contacts-list">
             <div class="contact-row">
                 <span class="contact-role">Наш свадебный организатор</span>
-                <span class="contact-info"><a href="tel:+375333337012">+375 33 333 7012</a> (Telegram: @Anna_LabirintGroup)</span>
+                <span class="contact-info"><a href="tel:+375333337012">+375 33 333 7012</a></span>
+                <div class="contact-telegram">Telegram: @Anna_LabirintGroup</div>
             </div>
         </div>
         <div class="contacts-divider"></div>
@@ -625,24 +654,36 @@
 
 <script>
     (function() {
-        // мягкий скролл между первым и вторым блоком: прокрутка на величину одного колеса, не мгновенный скролл страницы
-        let scrollTriggerUsed = false;
+        // Точная анимация прокрутки как в эталонном коде: кнопка кликабельна + первый скролл колесом плавно ведёт ко второму экрану
+        const scrollBtn = document.getElementById('scrollBtn');
         const secondScreen = document.getElementById('secondScreen');
+        
+        if (scrollBtn) {
+            scrollBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (secondScreen) {
+                    secondScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+        
+        let scrollTriggerUsed = false;
         function gentleScrollToSecond() {
             if (!scrollTriggerUsed && secondScreen) {
                 scrollTriggerUsed = true;
-                // плавная прокрутка до начала второго экрана с учётом стандартного поведения
                 secondScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
-        // Обработчик колеса мыши: если скролл вниз и ещё не активирован
+        
+        // Первое вращение колеса мыши
         window.addEventListener('wheel', function onFirstWheel(e) {
             if (!scrollTriggerUsed && e.deltaY > 0) {
                 gentleScrollToSecond();
                 window.removeEventListener('wheel', onFirstWheel);
-                // предотвращаем скачок всей страницы, но оставляем стандартную прокрутку в рамках плавности
             }
-        }, { once: false, passive: true });
+        }, { passive: true });
+        
+        // Первое касание для мобильных (swipe вниз)
         window.addEventListener('touchmove', function onFirstTouch(e) {
             if (!scrollTriggerUsed && e.touches && e.touches.length) {
                 gentleScrollToSecond();
