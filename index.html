@@ -33,22 +33,21 @@
         html, body {
             width: 100%;
             overflow-x: hidden;
-            /* Убираем глобальный smooth — он вызывает залипание */
-            scroll-behavior: auto;
+            scroll-behavior: auto; /* без глобальной плавности — только по клику */
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #ffffff;
-            -webkit-overflow-scrolling: touch; /* плавность на iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
+        /* Первый экран — убран overflow:hidden, чтобы не было залипания */
         .first-screen {
             position: relative;
             width: 100%;
             height: 100vh;
             height: 100dvh;
-            overflow: hidden;
             background-color: #ffffff;
         }
 
@@ -648,7 +647,7 @@
 
 <script>
     (function() {
-        // Только клик по кнопке с плавной прокруткой (без глобального smooth)
+        // Плавная прокрутка только по клику на кнопку
         const scrollBtn = document.getElementById('scrollBtn');
         const secondScreen = document.getElementById('secondScreen');
         if (scrollBtn && secondScreen) {
@@ -661,7 +660,7 @@
             });
         }
         
-        // Все анимации появления при скролле (без изменений)
+        // Анимация появления первого экрана
         const firstObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -676,6 +675,7 @@
         }, { threshold: 0.1 });
         firstObserver.observe(document.getElementById('firstScreen'));
 
+        // Анимация второго экрана
         const secondContainer = document.querySelector('.invitation-container');
         if (secondContainer) {
             let obs = new IntersectionObserver((entries) => {
@@ -696,6 +696,7 @@
             obs.observe(secondContainer);
         }
 
+        // Локация
         const locSec = document.getElementById('locationSection');
         if (locSec) {
             let locObserver = new IntersectionObserver((entries) => {
@@ -709,6 +710,7 @@
             locObserver.observe(locSec);
         }
         
+        // Тайминг
         const timeline = document.querySelector('.timeline-container');
         if (timeline) {
             let obs = new IntersectionObserver((entries) => {
@@ -723,6 +725,7 @@
             obs.observe(timeline);
         }
 
+        // Дресс-код
         const dressScreen = document.getElementById('dresscodeScreen');
         if (dressScreen) {
             let drObs = new IntersectionObserver((e) => {
@@ -737,6 +740,7 @@
             drObs.observe(dressScreen);
         }
         
+        // Пожелания
         const wishesContainer = document.querySelector('.wishes-container');
         if (wishesContainer) {
             let topObs = new IntersectionObserver((e) => {
@@ -776,6 +780,7 @@
             }
         }
 
+        // Финальное фото
         const finalPhotoDiv = document.getElementById('finalPhotoBlock');
         if (finalPhotoDiv) {
             let photoObs = new IntersectionObserver((entries) => {
@@ -789,6 +794,7 @@
             photoObs.observe(finalPhotoDiv);
         }
 
+        // Анкета
         const rsvpScreen = document.getElementById('rsvpScreen');
         if (rsvpScreen) {
             let rsvpObserver = new IntersectionObserver((entries) => {
@@ -802,6 +808,7 @@
             rsvpObserver.observe(rsvpScreen);
         }
 
+        // Контакты
         const contactsScreen = document.getElementById('contactsScreen');
         if (contactsScreen) {
             let contactsObserver = new IntersectionObserver((entries) => {
@@ -815,6 +822,7 @@
             contactsObserver.observe(contactsScreen);
         }
         
+        // Слайдер
         const slides = document.querySelectorAll('.slide-text');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -829,6 +837,7 @@
             nextBtn.onclick = () => showSlide(currentSlide+1);
         }
 
+        // Отправка формы
         const form = document.getElementById('guestForm');
         const messageDiv = document.getElementById('formMessage');
         if (form) {
