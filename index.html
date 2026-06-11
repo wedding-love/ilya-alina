@@ -44,7 +44,7 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #0a0a0a;
+            background-color: #ffffff;
         }
 
         /* ----- ПЕРВЫЙ ЭКРАН ----- */
@@ -162,24 +162,26 @@
         }
 
         .ampersand-between {
+            position: absolute;
+            left: -15px;
+            top: 58%;
+            transform: translateY(-50%) scale(1.2);
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-weight: 600;
-            font-size: 5.2rem;
-            color: rgba(136, 136, 136, 0.6);
+            font-weight: 500;
+            font-size: 9rem;
+            color: rgba(255, 255, 255, 0.15);
             text-shadow: none;
             line-height: 0.9;
-            margin-left: 0;
-            margin-top: -12px;
-            margin-bottom: -8px;
             opacity: 0;
-            transform: translateX(-35px);
             transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .ampersand-between.visible {
-            opacity: 0.65;
-            transform: translateX(0);
+            opacity: 0.35;
+            transform: translateY(-50%) scale(1.2);
         }
 
         .scroll-down {
@@ -220,6 +222,17 @@
             height: 11px;
         }
 
+        /* ----- АНИМАЦИЯ ДЛЯ ВСЕХ БЛОКОВ ----- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ----- ВТОРОЙ ЭКРАН ----- */
         .second-screen {
             width: 100%;
@@ -241,9 +254,6 @@
             line-height: 1.2;
             color: #1a1a1a;
             margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
         .save-the-date {
@@ -251,9 +261,6 @@
             font-size: clamp(2rem, 4.5vw, 2.4rem);
             color: #1a1a1a;
             margin-bottom: 25px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
         .description-text {
@@ -265,9 +272,6 @@
             letter-spacing: 0.5px;
             max-width: 320px;
             margin: 0 auto 35px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
         .line {
@@ -289,6 +293,11 @@
             margin-top: 30px;
             margin-bottom: 50px;
             transform-origin: bottom;
+        }
+
+        .line.visible {
+            opacity: 0.6;
+            transform: scaleY(1);
         }
 
         .date-block {
@@ -319,6 +328,11 @@
             transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
+        .date-number.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         .dot {
             font-size: 1.3rem;
             color: #1a1a1a;
@@ -327,12 +341,21 @@
             transition: opacity 2s ease;
         }
 
+        .dot.visible {
+            opacity: 1;
+        }
+
         .calendar-section {
             max-width: 280px;
             margin: 0 auto;
             opacity: 0;
             transform: translateY(120px);
             transition: opacity 3.5s cubic-bezier(0.16,1,0.3,1.1), transform 3.5s cubic-bezier(0.16,1,0.3,1.1);
+        }
+
+        .calendar-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .calendar-month {
@@ -384,35 +407,9 @@
         }
 
         .heart-path {
-            stroke: #e31b23;
+            stroke: #1a1a1a;
             stroke-width: 1.4;
             fill: none;
-        }
-
-        .title.visible,
-        .save-the-date.visible,
-        .description-text.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .line.visible {
-            opacity: 0.6;
-            transform: scaleY(1);
-        }
-
-        .date-number.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .dot.visible {
-            opacity: 1;
-        }
-
-        .calendar-section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         /* ----- ЛОКАЦИЯ ----- */
@@ -422,12 +419,6 @@
             margin: 0 auto;
             padding: 50px 25px;
             background: #fff;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .location-section.visible {
-            opacity: 1;
         }
 
         .location-bg {
@@ -440,26 +431,30 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.4,1) 0.3s;
+            transition: opacity 1.5s cubic-bezier(0.2,0.9,0.4,1) 0.3s;
             z-index: 1;
+            pointer-events: none;
+            border-radius: 8px;
+        }
+
+        .location-section.visible .location-bg {
+            opacity: 0.2;
         }
 
         .location-card {
             position: relative;
             z-index: 2;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.98);
             padding: 40px 25px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 4px;
         }
 
         .icon-scene {
             width: 70px;
             height: 70px;
             margin: 0 auto 20px;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
         .location-title {
@@ -469,9 +464,6 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 10px;
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
         .save-the-place {
@@ -480,23 +472,18 @@
             font-weight: 400;
             margin-bottom: 20px;
             display: inline-block;
-            transform: skewX(-3deg) translateX(60px);
-            opacity: 0;
-            transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
         .venue-name {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 800;
-            line-height: 1.4;
-            max-width: 260px;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.5;
+            max-width: 280px;
             margin: 0 auto 30px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            opacity: 0;
-            transform: translateY(55px);
-            transition: opacity 2.8s cubic-bezier(0.16,1,0.3,1.1), transform 2.8s cubic-bezier(0.16,1,0.3,1.1);
+            color: #1a1a1a;
         }
 
         .btn-maps {
@@ -510,21 +497,12 @@
             letter-spacing: 2px;
             padding: 12px 30px;
             text-transform: uppercase;
-            opacity: 0;
-            transform: translateY(55px);
-            transition: opacity 3s cubic-bezier(0.16,1,0.3,1.1), transform 3s cubic-bezier(0.16,1,0.3,1.1);
+            cursor: pointer;
         }
 
         .btn-maps:hover {
             background: #333;
         }
-
-        .location-section.visible .location-bg { opacity: 1; }
-        .location-section.visible .icon-scene { opacity: 1; transform: scale(1); }
-        .location-section.visible .location-title { opacity: 1; transform: translateX(0); }
-        .location-section.visible .save-the-place { opacity: 1; transform: skewX(-3deg) translateX(0); }
-        .location-section.visible .venue-name { opacity: 1; transform: translateY(0); }
-        .location-section.visible .btn-maps { opacity: 1; transform: translateY(0); }
 
         /* ----- ТАЙМИНГ ----- */
         .timeline-screen {
@@ -536,14 +514,6 @@
             max-width: 400px;
             margin: 0 auto;
             text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.8s cubic-bezier(0.2,0.9,0.3,1.1), transform 1.8s cubic-bezier(0.2,0.9,0.3,1.1);
-        }
-
-        .timeline-container.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .timeline-main-title {
@@ -575,12 +545,19 @@
         .timeline-item {
             margin: 30px 0;
             opacity: 0;
+            transform: translateX(-40px);
             transition: opacity 0.8s cubic-bezier(0.2,0.9,0.3,1.1), transform 0.8s cubic-bezier(0.2,0.9,0.3,1.1);
         }
 
-        .timeline-item.slide-left { transform: translateX(-40px); }
-        .timeline-item.slide-right { transform: translateX(40px); }
-        .timeline-item.visible { opacity: 1; transform: translateX(0); }
+        .timeline-item.slide-right {
+            transform: translateX(40px);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         .timeline-item .time {
             font-family: 'Cormorant Garamond', serif;
             font-size: 32px;
@@ -596,7 +573,7 @@
             margin: 0 auto;
         }
 
-        /* ----- ДРЕСС-КОД (ТОЛЬКО ТЕКСТ, БЕЗ ПРИМЕРОВ) ----- */
+        /* ----- ДРЕСС-КОД ----- */
         .dresscode-screen {
             background: #fff;
             padding: 40px 16px 60px;
@@ -619,9 +596,6 @@
             line-height: 1.2;
             color: #121212;
             margin-bottom: 24px;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 2s cubic-bezier(0.25, 0.8, 0.4, 1), transform 2s cubic-bezier(0.25, 0.8, 0.4, 1);
         }
         .dresscode-description {
             font-family: 'Montserrat', sans-serif;
@@ -631,27 +605,11 @@
             color: #333333;
             max-width: 340px;
             margin: 0 auto 30px auto;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 2s cubic-bezier(0.25, 0.8, 0.4, 1), transform 2s cubic-bezier(0.25, 0.8, 0.4, 1);
-        }
-        .dresscode-main-title.visible, .dresscode-description.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         /* ----- ПОЖЕЛАНИЯ ----- */
-        .wishes-screen { background: #ffffff; padding: 60px 20px 80px; }
+        .wishes-screen { background: #ffffff; padding: 60px 20px 40px; }
         .wishes-container { max-width: 450px; margin: 0 auto; text-align: center; }
-        .anim-slide-up, .anim-fade-in, .anim-slide-left, .anim-slide-right {
-            opacity: 0;
-            transition: opacity 2s cubic-bezier(0.25, 0.8, 0.4, 1), transform 2s cubic-bezier(0.25, 0.8, 0.4, 1);
-        }
-        .anim-slide-up { transform: translateY(40px); }
-        .anim-slide-left { transform: translateX(-40px); }
-        .anim-slide-right { transform: translateX(40px); }
-        .anim-fade-in { transform: none; }
-        .anim-slide-up.visible, .anim-fade-in.visible, .anim-slide-left.visible, .anim-slide-right.visible { opacity: 1; transform: translate(0) !important; }
         .wishes-main-title {
             font-family: 'Lighthaus', 'Quicksand', sans-serif;
             font-weight: 400;
@@ -661,11 +619,11 @@
             margin-bottom: 10px;
         }
         .wishes-handwritten-subtitle { font-family: 'Pinyon Script', cursive; font-size: 34px; margin-bottom: 35px; }
-        .slider-wrapper { position: relative; display: flex; align-items: center; justify-content: center; min-height: 180px; margin-bottom: 50px; padding: 0 40px; }
+        .slider-wrapper { position: relative; display: flex; align-items: center; justify-content: center; min-height: 200px; margin-bottom: 50px; padding: 0 40px; }
         .slider-content { width: 100%; position: relative; }
         .slide-text {
             font-family: 'Montserrat', sans-serif;
-            font-size: 13px; font-weight: 300; line-height: 1.8; color: #555;
+            font-size: 13px; font-weight: 400; line-height: 1.6; color: #444;
             position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%);
             opacity: 0; visibility: hidden; transition: opacity 1.2s ease, visibility 1.2s ease;
         }
@@ -674,9 +632,9 @@
         .arrow-left { left: -5px; }
         .arrow-right { right: -5px; }
         .slider-arrow svg { width: 24px; height: 16px; fill: none; stroke: #121212; stroke-width: 1px; }
-        .wishes-vertical-divider { width: 1px; height: 90px; background-color: #b5b5b5; margin: 0 auto 45px auto; }
-        .pre-closing { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.6; color: #121212; margin-bottom: 45px; }
-        .wishes-names-block { display: flex; flex-direction: column; align-items: center; margin-bottom: 55px; }
+        .wishes-vertical-divider { width: 1px; height: 60px; background-color: #b5b5b5; margin: 0 auto 35px auto; }
+        .pre-closing { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.6; color: #121212; margin-bottom: 35px; }
+        .wishes-names-block { display: flex; flex-direction: column; align-items: center; margin-bottom: 45px; }
         .name-item {
             font-family: 'Lighthaus', 'Quicksand', sans-serif;
             font-weight: 300;
@@ -687,28 +645,81 @@
             color: #121212;
         }
         .ampersand-item { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; font-weight: 400; color: #121212; margin: 12px 0; }
+        
+        /* ----- ФИНАЛЬНОЕ ФОТО ----- */
         .couple-photo-container {
-            width: 100%; padding: 0 10px;
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 2s cubic-bezier(0.25,0.8,0.4,1), transform 2s cubic-bezier(0.25,0.8,0.4,1);
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 0 10px;
         }
-        .couple-photo-container.visible { opacity: 1; transform: translateY(0); }
-        .couple-photo { width: 100%; aspect-ratio: 3 / 2; background-image: url('пара.jpg'); background-size: cover; background-position: center; background-color: #f5f5f5; border-radius: 20px; }
+        .couple-photo { 
+            width: 100%; 
+            aspect-ratio: 3 / 2; 
+            background-image: url('главная.png'); 
+            background-size: cover; 
+            background-position: center 35%; 
+            background-color: #f5f5f5; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        /* ----- АНКЕТА ГОСТЯ ----- */
+        .rsvp-screen {
+            background: #ffffff;
+            padding: 60px 20px;
+        }
+        .rsvp-container { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 40px 30px; box-shadow: none; text-align: left; }
+        .rsvp-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 12px; text-align: center; }
+        .rsvp-subtitle { font-family: 'Pinyon Script', cursive; font-size: 28px; text-align: center; color: #555; margin-bottom: 40px; border-bottom: 1px solid #eee; display: inline-block; width: 100%; padding-bottom: 15px; }
+        .form-group { margin-bottom: 25px; text-align: left; }
+        .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: #1a1a1a; text-align: left; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Montserrat', sans-serif; font-size: 16px; background: transparent; transition: border 0.2s ease; outline: none; color: #1a1a1a; text-align: left; }
+        .form-group select option { color: #1a1a1a; background: #ffffff; }
+        .form-group input:focus, .form-group select:focus { border-bottom-color: #1a1a1a; }
+        .radio-group { display: flex; gap: 25px; margin-top: 8px; flex-wrap: wrap; justify-content: flex-start; }
+        .radio-group label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; color: #1a1a1a; }
+        .radio-group input { width: auto; margin: 0; accent-color: #1a1a1a; }
+        .submit-btn { display: block; width: 100%; background: #1a1a1a; color: white; border: none; padding: 14px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
+        .submit-btn:hover { background: #333; }
+        .hidden-message { text-align: center; margin-top: 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #1a1a1a; display: none; }
+
+        /* ----- КОНТАКТЫ ----- */
+        .contacts-screen {
+            background: #ffffff;
+            padding: 60px 20px 80px;
+        }
+        .contacts-container { max-width: 450px; margin: 0 auto; text-align: center; }
+        .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; font-weight: 400; }
+        .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 50px; text-transform: none; }
+        .contacts-list { display: flex; flex-direction: column; gap: 28px; margin-bottom: 45px; }
+        .contact-row { display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 0.3px; }
+        .contact-role { font-weight: 500; color: #1a1a1a; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; }
+        .contact-info a { color: #333; text-decoration: none; transition: color 0.2s; }
+        .contact-info a:hover { color: #6B705C; }
+        .contacts-divider { width: 1px; height: 50px; background-color: #d0d0d0; margin: 0 auto 35px; }
+        .contacts-copyright { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1.5px; color: #aaa; text-transform: uppercase; }
 
         @media (max-width: 768px) {
             .name-line { font-size: 3.4rem; }
-            .ampersand-between { font-size: 4.2rem; margin-top: -10px; margin-bottom: -6px; }
+            .ampersand-between { font-size: 7rem; left: -10px; top: 56%; }
             .alyona-name { margin-left: 70px; margin-top: -5px; }
         }
         @media (max-width: 580px) {
             .name-line { font-size: 2.8rem; }
-            .ampersand-between { font-size: 3.5rem; }
+            .ampersand-between { font-size: 5.5rem; left: -8px; top: 54%; }
             .alyona-name { margin-left: 58px; margin-top: -5px; }
+            .name-item { font-size: 36px; letter-spacing: 4px; }
+            .couple-photo-container { max-width: 380px; }
         }
         @media (max-width: 480px) {
             .name-line { font-size: 2.4rem; }
-            .ampersand-between { font-size: 3rem; }
+            .ampersand-between { font-size: 4.5rem; left: -5px; top: 52%; }
             .alyona-name { margin-left: 50px; margin-top: -4px; }
+            .name-item { font-size: 30px; letter-spacing: 3px; }
+            .ampersand-item { font-size: 32px; }
+            .contact-row { flex-direction: column; align-items: center; gap: 6px; }
+            .couple-photo-container { max-width: 340px; }
         }
     </style>
 </head>
@@ -731,22 +742,23 @@
 
 <div class="second-screen" id="secondScreen">
     <div class="invitation-container">
-        <h1 class="title">ДОРОГИЕ<br>ДРУЗЬЯ!</h1>
-        <div class="save-the-date">Save the date!</div>
-        <p class="description-text">Это официальное приглашение на нашу свадьбу! А получили вы его потому, что мы очень хотим видеть вас в этот день рядом с нами!</p>
+        <h1 class="title fade-up">ДОРОГИЕ<br>ДРУЗЬЯ!</h1>
+        <div class="save-the-date fade-up">Save the date!</div>
+        <p class="description-text fade-up">Это официальное приглашение на нашу свадьбу! А получили вы его потому, что мы очень хотим видеть вас в этот день рядом с нами!</p>
         <div class="line line-top"></div>
         <div class="date-block">
             <span class="date-number from-left-1">28</span><span class="dot">.</span><span class="date-number from-right">08</span><span class="dot">.</span><span class="date-number from-left-2">26</span>
         </div>
         <div class="line line-bottom"></div>
         <div class="calendar-section">
-            <div class="calendar-month">Август</div>
+            <div class="calendar-month">Август 2026</div>
             <div class="calendar-grid">
                 <div class="weekday">пн</div><div class="weekday">вт</div><div class="weekday">ср</div><div class="weekday">чт</div><div class="weekday">пт</div><div class="weekday">сб</div><div class="weekday">вс</div>
-                <div class="day empty-day"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div>
-                <div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div>
-                <div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div>
-                <div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div>
+                <div class="day empty-day"></div><div class="day empty-day"></div><div class="day empty-day"></div><div class="day empty-day"></div><div class="day empty-day"></div><div class="day">1</div><div class="day">2</div>
+                <div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div>
+                <div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div>
+                <div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div>
+                <div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div>
                 <div class="day special-day">28<svg class="heart-svg" viewBox="0 0 50 50"><path class="heart-path" d="M25,15 C21,8 11,9 11,18 C11,27 23,36 25,38 C27,36 39,27 39,18 C39,9 29,8 25,15 Z"/></svg></div>
                 <div class="day">29</div><div class="day">30</div><div class="day">31</div>
             </div>
@@ -754,21 +766,25 @@
     </div>
 </div>
 
-<div class="location-section" id="locationSection">
+<div class="location-section fade-up" id="locationSection">
     <div class="location-bg"></div>
     <div class="location-card">
         <div class="icon-scene"><svg class="location-svg" viewBox="0 0 24 24" width="50" height="50"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#1a1a1a"/></svg></div>
         <h2 class="location-title">МЕСТО<br>ПРОВЕДЕНИЯ</h2>
         <div class="save-the-place">Save the place!</div>
-        <p class="venue-name">Костёл Пресвятого<br>Искупителя</p>
-        <a href="https://yandex.by/maps/org/kostyol_presvyatogo_iskupitelya/1124266683/?ll=23.850890%2C53.707931&z=15" target="_blank" class="btn-maps">Как добраться</a>
+        <p class="venue-name">
+            Royal Hall<br>
+            Минская область, д. Чуденичи<br>
+            ул. Лесная 2а
+        </p>
+        <a href="https://yandex.by/maps/org/usadba_royal_hall/1400112911/?ll=27.793345%2C54.137742&z=15" target="_blank" class="btn-maps">Как добраться</a>
     </div>
 </div>
 
 <div class="timeline-screen" id="timelineScreen">
     <div class="timeline-container">
-        <h2 class="timeline-main-title">Тайминг</h2>
-        <div class="timeline-subtitle">Of the day</div>
+        <h2 class="timeline-main-title fade-up">Тайминг</h2>
+        <div class="timeline-subtitle fade-up">Of the day</div>
         <div class="timeline-middle-line"></div>
         <div class="timeline-list">
             <div class="timeline-item slide-left"><div class="time">15:00</div><div class="timeline-desc">Сбор гостей, фуршет</div></div>
@@ -781,37 +797,99 @@
 
 <div class="dresscode-screen" id="dresscodeScreen">
     <div class="dresscode-container">
-        <h1 class="dresscode-main-title" id="dresscodeMainTitle">Дресс-код</h1>
-        <p class="dresscode-description" id="dresscodeDescription">Строгих правил нет — только красивые и элегантные образы!<br>Милые дамы, давайте оставим белый цвет для невесты.<br>Уважаемые джентльмены, помните: шорты и футболки в этот день в отпуске.</p>
+        <h1 class="dresscode-main-title fade-up">Дресс-код</h1>
+        <p class="dresscode-description fade-up">Строгих правил нет — только красивые и элегантные образы!<br>Милые дамы, давайте оставим белый цвет для невесты.<br>Уважаемые джентльмены, помните: шорты и футболки в этот день в отпуске.</p>
     </div>
 </div>
 
 <div class="wishes-screen" id="wishesScreen">
     <div class="wishes-container">
-        <h2 class="wishes-main-title anim-slide-up">Пожелания</h2>
-        <div class="wishes-handwritten-subtitle anim-slide-up">Our wishes</div>
-        <div class="slider-wrapper anim-slide-up">
+        <h2 class="wishes-main-title fade-up">Пожелания</h2>
+        <div class="wishes-handwritten-subtitle fade-up">Our wishes</div>
+        <div class="slider-wrapper fade-up">
             <button class="slider-arrow arrow-left" id="prevBtn"><svg viewBox="0 0 24 24"><line x1="20" y1="12" x2="4" y2="12"></line><polyline points="10 6 4 12 10 18"></polyline></svg></button>
             <div class="slider-content">
-                <div class="slide-text active">Дорогие гости, ваше присутствие — уже лучший подарок! ✨ Вместо цветов лучше подарите нам бутылочку вина для нашей коллекции — так душе теплее, а полки радостнее. Ждем смеха, танцев и теплых объятий! 🍷🎉</div>
-                <div class="slide-text">Будем очень признательны, если Вы воздержитесь от криков «Горько». Ведь поцелуй — это знак выражения чувств, и он не может быть по заказу. 💋</div>
-                <div class="slide-text">Мы очень любим детей, но в связи с особенностями площадки наш праздник пройдет в формате только для взрослых. Спасибо за понимание — будем рады провести этот вечер вместе с вами! 🌸</div>
+                <div class="slide-text active">Самое главное для нас — ваше присутствие в этот день!<br><br>Просим вас не дарить цветы: мы не сможем окружить их заботой, которую они заслуживают. Вместо букета будем рады бутылке вина с пожеланием, на какой праздник нам её открыть.</div>
+                <div class="slide-text">А если задумываетесь о подарке — мы будем очень благодарны за вклад в бюджет нашей молодой семьи. Это поможет осуществить наши общие мечты.</div>
             </div>
             <button class="slider-arrow arrow-right" id="nextBtn"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg></button>
         </div>
-        <div class="wishes-vertical-divider anim-fade-in"></div>
-        <div class="pre-closing anim-slide-up">До скорой встречи!<br>С любовью</div>
+        <div class="wishes-vertical-divider"></div>
+        <div class="pre-closing fade-up">До скорой встречи!<br>С любовью</div>
         <div class="wishes-names-block">
-            <span class="name-item anim-slide-left" id="vitaliyWishes">Илья</span>
-            <span class="ampersand-item anim-slide-left" id="ampersandWishes">&</span>
-            <span class="name-item anim-slide-right" id="alyonaWishes">Алина</span>
+            <span class="name-item fade-up">Илья</span>
+            <span class="ampersand-item fade-up">&</span>
+            <span class="name-item fade-up">Алина</span>
         </div>
-        <div class="couple-photo-container" id="finalPhoto"><div class="couple-photo"></div></div>
+        <div class="couple-photo-container fade-up" id="finalPhoto"><div class="couple-photo"></div></div>
+    </div>
+</div>
+
+<div class="rsvp-screen" id="rsvpScreen">
+    <div class="rsvp-container">
+        <h2 class="rsvp-title fade-up">Анкета гостя</h2>
+        <p class="fade-up" style="font-family: 'Montserrat', sans-serif; font-size: 12px; text-align: center; margin-bottom: 30px; color: #555;">Пожалуйста, заполняйте анкету от каждого члена семьи по отдельности, чтобы мы могли учесть все ваши пожелания</p>
+        <form id="guestForm" action="https://formspree.io/f/xkoazyer" method="POST">
+            <div class="form-group fade-up">
+                <label>Ваше имя и фамилия</label>
+                <input type="text" name="name" id="guestName" placeholder="Например, Анна Петрова" required>
+            </div>
+            <div class="form-group fade-up">
+                <label>Планируете ли вы присутствовать?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label>
+                    <label><input type="radio" name="attendance" value="no"> К сожалению, нет</label>
+                </div>
+            </div>
+            <div class="form-group fade-up">
+                <label>Есть ли у вас аллергия на что-либо?</label>
+                <input type="text" name="allergy" placeholder="Укажите, если есть аллергия">
+            </div>
+            <div class="form-group fade-up">
+                <label>Ваши предпочтения по алкоголю</label>
+                <select name="alcohol_preference">
+                    <option value="Вино">Вино</option><option value="Игристое">Игристое</option><option value="Виски">Виски</option>
+                    <option value="Водка">Водка</option><option value="Коньяк">Коньяк</option><option value="Не буду пить алкоголь">Не буду пить алкоголь</option>
+                </select>
+            </div>
+            <div class="form-group fade-up">
+                <label>Нужен ли вам трансфер из Минска?</label>
+                <select name="transfer">
+                    <option value="Да">Да</option><option value="Нет">Нет</option><option value="Только в усадьбу">Только в усадьбу</option><option value="Только из усадьбы">Только из усадьбы</option>
+                </select>
+            </div>
+            <div class="form-group fade-up">
+                <label>Будет ли с вами ребенок?</label>
+                <input type="text" name="children" placeholder="Да, возраст / Нет">
+            </div>
+            <div class="form-group fade-up">
+                <label>Есть ли что-то, что вы хотели бы добавить или о чем нам нужно обязательно знать?</label>
+                <input type="text" name="additional_info" placeholder="Ваши пожелания...">
+            </div>
+            <button type="submit" class="submit-btn fade-up">Отправить ответ</button>
+            <div id="formMessage" class="hidden-message">Спасибо! Ждём вас на нашей свадьбе</div>
+        </form>
+    </div>
+</div>
+
+<div class="contacts-screen" id="contactsScreen">
+    <div class="contacts-container">
+        <h2 class="contacts-title fade-up">Контакты</h2>
+        <div class="contacts-subtitle fade-up">остались вопросы? Мы на связи</div>
+        <div class="contacts-list">
+            <div class="contact-row fade-up">
+                <span class="contact-role">Наш свадебный организатор</span>
+                <span class="contact-info"><a href="tel:+375333337012">+375 33 333 7012</a> (Telegram: @Anna_LabirintGroup)</span>
+            </div>
+        </div>
+        <div class="contacts-divider"></div>
+        <div class="contacts-copyright fade-up">Илья и Алина</div>
     </div>
 </div>
 
 <script>
     (function() {
+        // Анимация первого экрана
         const firstObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -826,73 +904,89 @@
         }, { threshold: 0.1 });
         firstObserver.observe(document.getElementById('firstScreen'));
 
+        // Анимация для всех элементов с классом fade-up
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: "0px 0px -30px 0px" });
+        
+        fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // Анимация для календаря и линий
         const secondContainer = document.querySelector('.invitation-container');
         if (secondContainer) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        document.querySelector('.title')?.classList.add('visible');
-                        setTimeout(() => document.querySelector('.save-the-date')?.classList.add('visible'), 200);
-                        setTimeout(() => document.querySelector('.description-text')?.classList.add('visible'), 400);
-                        setTimeout(() => document.querySelector('.line-top')?.classList.add('visible'), 600);
-                        setTimeout(() => document.querySelectorAll('.date-number').forEach(el => el.classList.add('visible')), 900);
-                        setTimeout(() => document.querySelectorAll('.dot').forEach(el => el.classList.add('visible')), 1200);
-                        setTimeout(() => document.querySelector('.line-bottom')?.classList.add('visible'), 1500);
-                        setTimeout(() => document.querySelector('.calendar-section')?.classList.add('visible'), 2000);
+                        document.querySelector('.line-top')?.classList.add('visible');
+                        setTimeout(() => document.querySelectorAll('.date-number').forEach(el => el.classList.add('visible')), 300);
+                        setTimeout(() => document.querySelectorAll('.dot').forEach(el => el.classList.add('visible')), 500);
+                        setTimeout(() => document.querySelector('.line-bottom')?.classList.add('visible'), 700);
+                        setTimeout(() => document.querySelector('.calendar-section')?.classList.add('visible'), 1000);
                         observer.disconnect();
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.3 });
             observer.observe(secondContainer);
         }
 
-        const locSec = document.getElementById('locationSection');
-        if (locSec) {
-            const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) locSec.classList.add('visible'); observer.disconnect(); }); }, { threshold: 0.3 });
-            observer.observe(locSec);
-        }
-        const timeline = document.querySelector('.timeline-container');
-        if (timeline) {
-            const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) { timeline.classList.add('visible'); document.querySelectorAll('.timeline-item').forEach((item,i) => setTimeout(() => item.classList.add('visible'), [300,800,1300,1800][i])); observer.disconnect(); } }); }, { threshold: 0.5 });
-            observer.observe(timeline);
+        // Анимация для тайминга
+        const timelineContainer = document.querySelector('.timeline-container');
+        if (timelineContainer) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if(e.isIntersecting) {
+                        document.querySelectorAll('.timeline-item').forEach((item,i) => setTimeout(() => item.classList.add('visible'), [200,500,800,1100][i]));
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            observer.observe(timelineContainer);
         }
 
-        const dressScreen = document.getElementById('dresscodeScreen');
-        if (dressScreen) { 
-            const drObs = new IntersectionObserver((e) => { e.forEach(entry => { if(entry.isIntersecting) { document.getElementById('dresscodeMainTitle')?.classList.add('visible'); document.getElementById('dresscodeDescription')?.classList.add('visible'); drObs.disconnect(); } }); }, { threshold: 0.3 }); 
-            drObs.observe(dressScreen); 
-        }
-        
-        const wishesContainer = document.querySelector('.wishes-container');
-        if (wishesContainer) { 
-            const topObs = new IntersectionObserver((e) => { e.forEach(entry => { if(entry.isIntersecting) { document.querySelectorAll('.anim-slide-up').forEach(el => el.classList.add('visible')); document.querySelector('.anim-fade-in')?.classList.add('visible'); topObs.disconnect(); } }); }, { threshold: 0.3 }); 
-            topObs.observe(wishesContainer); 
-            const leftEl = document.querySelectorAll('.anim-slide-left'); 
-            if(leftEl.length) { 
-                const lObs = new IntersectionObserver((e) => { e.forEach(entry => { if(entry.isIntersecting) { leftEl.forEach(el => el.classList.add('visible')); lObs.disconnect(); } }); }, { threshold: 0.6 }); 
-                lObs.observe(document.querySelector('.wishes-names-block')); 
-            } 
-            const rightEl = document.querySelector('.anim-slide-right'); 
-            if(rightEl) { 
-                const rObs = new IntersectionObserver((e) => { e.forEach(entry => { if(entry.isIntersecting) { rightEl.classList.add('visible'); rObs.disconnect(); } }); }, { threshold: 0.6 }); 
-                rObs.observe(rightEl); 
-            } 
-            const finPhoto = document.getElementById('finalPhoto'); 
-            if(finPhoto) { 
-                const phObs = new IntersectionObserver((e) => { e.forEach(entry => { if(entry.isIntersecting) { finPhoto.classList.add('visible'); phObs.disconnect(); } }); }, { threshold: 0.25 }); 
-                phObs.observe(finPhoto); 
-            } 
-        }
-        document.getElementById('scrollBtn')?.addEventListener('click', () => { document.getElementById('secondScreen')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-        
+        // Слайдер
         const slides = document.querySelectorAll('.slide-text'); 
         const prevBtn = document.getElementById('prevBtn'); 
         const nextBtn = document.getElementById('nextBtn'); 
         let currentSlide = 0; 
         if(slides.length && prevBtn && nextBtn) { 
-            const showSlide = (i) => { slides[currentSlide].classList.remove('active'); currentSlide = (i + slides.length) % slides.length; slides[currentSlide].classList.add('active'); }; 
+            const showSlide = (i) => { 
+                slides[currentSlide].classList.remove('active'); 
+                currentSlide = (i + slides.length) % slides.length; 
+                slides[currentSlide].classList.add('active'); 
+            }; 
             prevBtn.onclick = () => showSlide(currentSlide-1); 
             nextBtn.onclick = () => showSlide(currentSlide+1); 
+        }
+
+        // Кнопка скролла
+        document.getElementById('scrollBtn')?.addEventListener('click', () => { 
+            document.getElementById('secondScreen')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+        });
+
+        // Форма
+        const form = document.getElementById('guestForm');
+        const messageDiv = document.getElementById('formMessage');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const nameInput = document.getElementById('guestName');
+                if (nameInput && !nameInput.value.trim()) {
+                    e.preventDefault();
+                    alert('Пожалуйста, укажите ваше имя');
+                    return;
+                }
+                messageDiv.style.display = 'block';
+                setTimeout(() => { messageDiv.style.opacity = '1'; }, 10);
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                    messageDiv.style.opacity = '0';
+                }, 4000);
+            });
         }
     })();
 </script>
