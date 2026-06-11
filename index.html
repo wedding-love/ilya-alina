@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -396,29 +397,30 @@
             visibility: hidden;
         }
 
+        /* Увеличили размер сердца и толщину обводки */
         .heart-svg {
             position: absolute;
-            width: 38px;
-            height: 38px;
+            width: 48px;
+            height: 48px;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-46%);
+            transform: translate(-50%, -46%);
             pointer-events: none;
         }
 
         .heart-path {
             stroke: #1a1a1a;
-            stroke-width: 1.4;
+            stroke-width: 2.4;
             fill: none;
         }
 
-        /* ----- ЛОКАЦИЯ ----- */
+        /* ----- ЛОКАЦИЯ (Ч/Б фон, без белой пленки) ----- */
         .location-section {
             position: relative;
-            max-width: 450px;
+            max-width: 500px;
             margin: 0 auto;
             padding: 50px 25px;
-            background: #fff;
+            background: transparent;
         }
 
         .location-bg {
@@ -431,30 +433,47 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
+            filter: grayscale(100%) contrast(1.05);
             transition: opacity 1.5s cubic-bezier(0.2,0.9,0.4,1) 0.3s;
             z-index: 1;
             pointer-events: none;
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
         .location-section.visible .location-bg {
-            opacity: 0.2;
+            opacity: 0.55;
         }
 
+        /* Карточка без белого фона — текст напрямую поверх ч/б изображения */
         .location-card {
             position: relative;
             z-index: 2;
-            background: rgba(255, 255, 255, 0.98);
+            background: transparent;
             padding: 40px 25px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border-radius: 4px;
+            backdrop-filter: blur(0px);
+            color: #1a1a1a;
+        }
+
+        /* Добавим легкую тень тексту для читаемости поверх фона */
+        .location-card h2, 
+        .location-card .save-the-place,
+        .location-card .venue-name,
+        .location-card .btn-maps {
+            text-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .location-card .btn-maps {
+            background: #1a1a1aec;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .icon-scene {
             width: 70px;
             height: 70px;
             margin: 0 auto 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .location-title {
@@ -464,6 +483,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 10px;
+            color: #121212;
         }
 
         .save-the-place {
@@ -472,6 +492,7 @@
             font-weight: 400;
             margin-bottom: 20px;
             display: inline-block;
+            color: #1a1a1a;
         }
 
         .venue-name {
@@ -646,7 +667,7 @@
         }
         .ampersand-item { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; font-weight: 400; color: #121212; margin: 12px 0; }
         
-        /* ----- ФИНАЛЬНОЕ ФОТО ----- */
+        /* ----- ФИНАЛЬНОЕ ФОТО (чуть выше в высоту) ----- */
         .couple-photo-container {
             width: 100%;
             max-width: 450px;
@@ -655,7 +676,7 @@
         }
         .couple-photo { 
             width: 100%; 
-            aspect-ratio: 3 / 2; 
+            aspect-ratio: 3 / 2.4;   /* ранее было 3/2, сделали выше */
             background-image: url('главная.png'); 
             background-size: cover; 
             background-position: center 35%; 
@@ -664,12 +685,19 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
 
-        /* ----- АНКЕТА ГОСТЯ ----- */
+        /* ----- АНКЕТА ГОСТЯ (групповая анимация) ----- */
         .rsvp-screen {
             background: #ffffff;
             padding: 60px 20px;
         }
-        .rsvp-container { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 40px 30px; box-shadow: none; text-align: left; }
+        .rsvp-container { 
+            max-width: 500px; 
+            margin: 0 auto; 
+            background: #ffffff; 
+            padding: 40px 30px; 
+            box-shadow: none; 
+            text-align: left; 
+        }
         .rsvp-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 12px; text-align: center; }
         .rsvp-subtitle { font-family: 'Pinyon Script', cursive; font-size: 28px; text-align: center; color: #555; margin-bottom: 40px; border-bottom: 1px solid #eee; display: inline-block; width: 100%; padding-bottom: 15px; }
         .form-group { margin-bottom: 25px; text-align: left; }
@@ -684,7 +712,7 @@
         .submit-btn:hover { background: #333; }
         .hidden-message { text-align: center; margin-top: 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #1a1a1a; display: none; }
 
-        /* ----- КОНТАКТЫ ----- */
+        /* ----- КОНТАКТЫ (раздельные строки, групповая анимация) ----- */
         .contacts-screen {
             background: #ffffff;
             padding: 60px 20px 80px;
@@ -692,11 +720,40 @@
         .contacts-container { max-width: 450px; margin: 0 auto; text-align: center; }
         .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; font-weight: 400; }
         .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 50px; text-transform: none; }
-        .contacts-list { display: flex; flex-direction: column; gap: 28px; margin-bottom: 45px; }
-        .contact-row { display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 0.3px; }
-        .contact-role { font-weight: 500; color: #1a1a1a; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; }
-        .contact-info a { color: #333; text-decoration: none; transition: color 0.2s; }
-        .contact-info a:hover { color: #6B705C; }
+        .contacts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-bottom: 45px;
+        }
+        /* Каждый контактный блок теперь две строки */
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-role {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+        }
+        .contact-line {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+        .contact-line a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .contact-line a:hover {
+            color: #6B705C;
+        }
         .contacts-divider { width: 1px; height: 50px; background-color: #d0d0d0; margin: 0 auto 35px; }
         .contacts-copyright { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1.5px; color: #aaa; text-transform: uppercase; }
 
@@ -718,7 +775,6 @@
             .alyona-name { margin-left: 50px; margin-top: -4px; }
             .name-item { font-size: 30px; letter-spacing: 3px; }
             .ampersand-item { font-size: 32px; }
-            .contact-row { flex-direction: column; align-items: center; gap: 6px; }
             .couple-photo-container { max-width: 340px; }
         }
     </style>
@@ -826,64 +882,36 @@
 </div>
 
 <div class="rsvp-screen" id="rsvpScreen">
-    <div class="rsvp-container">
-        <h2 class="rsvp-title fade-up">Анкета гостя</h2>
-        <p class="fade-up" style="font-family: 'Montserrat', sans-serif; font-size: 12px; text-align: center; margin-bottom: 30px; color: #555;">Пожалуйста, заполняйте анкету от каждого члена семьи по отдельности, чтобы мы могли учесть все ваши пожелания</p>
+    <div class="rsvp-container rsvp-fade-group">
+        <h2 class="rsvp-title">Анкета гостя</h2>
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; text-align: center; margin-bottom: 30px; color: #555;">Пожалуйста, заполняйте анкету от каждого члена семьи по отдельности, чтобы мы могли учесть все ваши пожелания</p>
         <form id="guestForm" action="https://formspree.io/f/xkoazyer" method="POST">
-            <div class="form-group fade-up">
-                <label>Ваше имя и фамилия</label>
-                <input type="text" name="name" id="guestName" placeholder="Например, Анна Петрова" required>
-            </div>
-            <div class="form-group fade-up">
-                <label>Планируете ли вы присутствовать?</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label>
-                    <label><input type="radio" name="attendance" value="no"> К сожалению, нет</label>
-                </div>
-            </div>
-            <div class="form-group fade-up">
-                <label>Есть ли у вас аллергия на что-либо?</label>
-                <input type="text" name="allergy" placeholder="Укажите, если есть аллергия">
-            </div>
-            <div class="form-group fade-up">
-                <label>Ваши предпочтения по алкоголю</label>
-                <select name="alcohol_preference">
-                    <option value="Вино">Вино</option><option value="Игристое">Игристое</option><option value="Виски">Виски</option>
-                    <option value="Водка">Водка</option><option value="Коньяк">Коньяк</option><option value="Не буду пить алкоголь">Не буду пить алкоголь</option>
-                </select>
-            </div>
-            <div class="form-group fade-up">
-                <label>Нужен ли вам трансфер из Минска?</label>
-                <select name="transfer">
-                    <option value="Да">Да</option><option value="Нет">Нет</option><option value="Только в усадьбу">Только в усадьбу</option><option value="Только из усадьбы">Только из усадьбы</option>
-                </select>
-            </div>
-            <div class="form-group fade-up">
-                <label>Будет ли с вами ребенок?</label>
-                <input type="text" name="children" placeholder="Да, возраст / Нет">
-            </div>
-            <div class="form-group fade-up">
-                <label>Есть ли что-то, что вы хотели бы добавить или о чем нам нужно обязательно знать?</label>
-                <input type="text" name="additional_info" placeholder="Ваши пожелания...">
-            </div>
-            <button type="submit" class="submit-btn fade-up">Отправить ответ</button>
+            <div class="form-group"><label>Ваше имя и фамилия</label><input type="text" name="name" id="guestName" placeholder="Например, Анна Петрова" required></div>
+            <div class="form-group"><label>Планируете ли вы присутствовать?</label><div class="radio-group"><label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label><label><input type="radio" name="attendance" value="no"> К сожалению, нет</label></div></div>
+            <div class="form-group"><label>Есть ли у вас аллергия на что-либо?</label><input type="text" name="allergy" placeholder="Укажите, если есть аллергия"></div>
+            <div class="form-group"><label>Ваши предпочтения по алкоголю</label><select name="alcohol_preference"><option value="Вино">Вино</option><option value="Игристое">Игристое</option><option value="Виски">Виски</option><option value="Водка">Водка</option><option value="Коньяк">Коньяк</option><option value="Не буду пить алкоголь">Не буду пить алкоголь</option></select></div>
+            <div class="form-group"><label>Нужен ли вам трансфер из Минска?</label><select name="transfer"><option value="Да">Да</option><option value="Нет">Нет</option><option value="Только в усадьбу">Только в усадьбу</option><option value="Только из усадьбы">Только из усадьбы</option></select></div>
+            <div class="form-group"><label>Будет ли с вами ребенок?</label><input type="text" name="children" placeholder="Да, возраст / Нет"></div>
+            <div class="form-group"><label>Есть ли что-то, что вы хотели бы добавить или о чем нам нужно обязательно знать?</label><input type="text" name="additional_info" placeholder="Ваши пожелания..."></div>
+            <button type="submit" class="submit-btn">Отправить ответ</button>
             <div id="formMessage" class="hidden-message">Спасибо! Ждём вас на нашей свадьбе</div>
         </form>
     </div>
 </div>
 
 <div class="contacts-screen" id="contactsScreen">
-    <div class="contacts-container">
-        <h2 class="contacts-title fade-up">Контакты</h2>
-        <div class="contacts-subtitle fade-up">остались вопросы? Мы на связи</div>
+    <div class="contacts-container contacts-fade-group">
+        <h2 class="contacts-title">Контакты</h2>
+        <div class="contacts-subtitle">остались вопросы? Мы на связи</div>
         <div class="contacts-list">
-            <div class="contact-row fade-up">
-                <span class="contact-role">Наш свадебный организатор</span>
-                <span class="contact-info"><a href="tel:+375333337012">+375 33 333 7012</a> (Telegram: @Anna_LabirintGroup)</span>
+            <div class="contact-item">
+                <div class="contact-role">Наш свадебный организатор</div>
+                <div class="contact-line"><a href="tel:+375333337012">+375 33 333 7012</a></div>
+                <div class="contact-line">Telegram: <a href="https://t.me/Anna_LabirintGroup">@Anna_LabirintGroup</a></div>
             </div>
         </div>
         <div class="contacts-divider"></div>
-        <div class="contacts-copyright fade-up">Илья и Алина</div>
+        <div class="contacts-copyright">Илья и Алина</div>
     </div>
 </div>
 
@@ -904,7 +932,7 @@
         }, { threshold: 0.1 });
         firstObserver.observe(document.getElementById('firstScreen'));
 
-        // Анимация для всех элементов с классом fade-up
+        // Обычные fade-up элементы
         const fadeElements = document.querySelectorAll('.fade-up');
         const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -914,10 +942,39 @@
                 }
             });
         }, { threshold: 0.15, rootMargin: "0px 0px -30px 0px" });
-        
         fadeElements.forEach(el => fadeObserver.observe(el));
 
-        // Анимация для календаря и линий
+        // АНИМАЦИЯ ДЛЯ АНКЕТЫ И КОНТАКТОВ: весь текст сразу снизу вверх
+        const rsvpGroup = document.querySelector('.rsvp-fade-group');
+        if (rsvpGroup) {
+            const rsvpObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Находим все дочерние элементы, которым нужна анимация, и добавляем класс visible одновременно
+                        const elementsToAnimate = rsvpGroup.querySelectorAll('h2, p, .form-group, .submit-btn');
+                        elementsToAnimate.forEach(el => el.classList.add('visible'));
+                        rsvpObserver.unobserve(rsvpGroup);
+                    }
+                });
+            }, { threshold: 0.2 });
+            rsvpObserver.observe(rsvpGroup);
+        }
+
+        const contactsGroup = document.querySelector('.contacts-fade-group');
+        if (contactsGroup) {
+            const contactsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const toAnimate = contactsGroup.querySelectorAll('.contacts-title, .contacts-subtitle, .contact-item, .contacts-copyright');
+                        toAnimate.forEach(el => el.classList.add('visible'));
+                        contactsObserver.unobserve(contactsGroup);
+                    }
+                });
+            }, { threshold: 0.2 });
+            contactsObserver.observe(contactsGroup);
+        }
+
+        // Календарь и линии
         const secondContainer = document.querySelector('.invitation-container');
         if (secondContainer) {
             const observer = new IntersectionObserver((entries) => {
@@ -935,7 +992,7 @@
             observer.observe(secondContainer);
         }
 
-        // Анимация для тайминга
+        // Тайминг
         const timelineContainer = document.querySelector('.timeline-container');
         if (timelineContainer) {
             const observer = new IntersectionObserver((entries) => {
@@ -964,7 +1021,7 @@
             nextBtn.onclick = () => showSlide(currentSlide+1); 
         }
 
-        // Кнопка скролла
+        // Скролл
         document.getElementById('scrollBtn')?.addEventListener('click', () => { 
             document.getElementById('secondScreen')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
         });
