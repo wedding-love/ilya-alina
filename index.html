@@ -512,7 +512,7 @@
         .name-item { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 300; font-size: 46px; text-transform: uppercase; letter-spacing: 5px; color: #121212; }
         .ampersand-item { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; font-weight: 400; margin: 12px 0; }
 
-        /* ----- АНКЕТА - ВЫБОР НАПИТКОВ СТОЛБИКОМ (адаптивно) ----- */
+        /* ----- АНКЕТА - ВЫБОР НАПИТКОВ СТРОГО В СТОЛБИК (ВЕРТИКАЛЬНО) ----- */
         .rsvp-screen { background: #fff; padding: 60px 20px; }
         .rsvp-container { max-width: 500px; margin: 0 auto; background: #fff; padding: 40px 30px; text-align: left; }
         .rsvp-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; text-align: center; margin-bottom: 12px; }
@@ -524,7 +524,7 @@
         .radio-group label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; margin-bottom: 0; }
         .radio-group input { width: auto; accent-color: #1a1a1a; }
         
-        /* Стили для чекбоксов — В СТОЛБИК на всех разрешениях */
+        /* Список напитков — ТОЛЬКО В СТОЛБИК, никаких рядов */
         .checkbox-group {
             display: flex;
             flex-direction: column;
@@ -541,6 +541,7 @@
             margin-bottom: 0;
             cursor: pointer;
             padding: 4px 0;
+            width: 100%;
         }
         .checkbox-group input[type="checkbox"] {
             width: 18px;
@@ -567,14 +568,6 @@
         .contacts-container { max-width: 450px; margin: 0 auto; text-align: center; }
         .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; }
         .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 20px; }
-        .contacts-question-gray {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            color: #888;
-            margin-bottom: 35px;
-            letter-spacing: 0.3px;
-        }
         .contacts-list { display: flex; flex-direction: column; gap: 28px; margin-bottom: 45px; }
         .contact-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .contact-role { font-family: 'Montserrat', sans-serif; font-weight: 500; color: #1a1a1a; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; }
@@ -718,7 +711,7 @@
     </div>
 </div>
 
-<!-- АНКЕТА — список напитков строго в столбик (адаптивно) -->
+<!-- АНКЕТА — СПИСОК НАПИТКОВ РОВНЫЙ СТОЛБИК (вертикально) -->
 <div class="rsvp-screen" id="rsvpScreen">
     <div class="rsvp-container">
         <h2 class="rsvp-title rsvp-animate">Анкета гостя</h2>
@@ -728,7 +721,7 @@
             <div class="form-group rsvp-animate"><label>Планируете ли вы присутствовать?</label><div class="radio-group"><label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label><label><input type="radio" name="attendance" value="no"> К сожалению, нет</label></div></div>
             <div class="form-group rsvp-animate"><label>Есть ли у вас аллергия на что-либо?</label><input type="text" name="allergy" placeholder="Укажите, если есть аллергия"></div>
             
-            <!-- МНОЖЕСТВЕННЫЙ ВЫБОР НАПИТКОВ — ВЕРТИКАЛЬНЫЙ СПИСОК (СТОЛБИК) на всех экранах -->
+            <!-- МНОЖЕСТВЕННЫЙ ВЫБОР НАПИТКОВ — СТРОГО ВЕРТИКАЛЬНЫЙ СПИСОК (СТОЛБИК) -->
             <div class="form-group rsvp-animate">
                 <label>Ваши предпочтения по алкоголю (можно выбрать несколько)</label>
                 <div class="checkbox-group">
