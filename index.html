@@ -33,12 +33,14 @@
         html, body {
             width: 100%;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            /* Убираем глобальный smooth — он вызывает залипание */
+            scroll-behavior: auto;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #ffffff;
+            -webkit-overflow-scrolling: touch; /* плавность на iOS */
         }
 
         .first-screen {
@@ -646,12 +648,20 @@
 
 <script>
     (function() {
-        // Только клик по кнопке — без перехвата колеса, как в эталоне
-        document.getElementById('scrollBtn')?.addEventListener('click', () => {
-            document.getElementById('secondScreen')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+        // Только клик по кнопке с плавной прокруткой (без глобального smooth)
+        const scrollBtn = document.getElementById('scrollBtn');
+        const secondScreen = document.getElementById('secondScreen');
+        if (scrollBtn && secondScreen) {
+            scrollBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: secondScreen.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        }
         
-        // Все остальные анимации появления при скролле
+        // Все анимации появления при скролле (без изменений)
         const firstObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
