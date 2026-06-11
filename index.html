@@ -474,7 +474,7 @@
         }
         .btn-maps:hover { background: #333; }
 
-        /* ----- ТАЙМИНГ (обновленный) ----- */
+        /* ----- ТАЙМИНГ ----- */
         .timeline-screen { background: #fff; padding: 50px 20px 60px; }
         .timeline-container { max-width: 400px; margin: 0 auto; text-align: center; }
         .timeline-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: clamp(1.8rem,4.5vw,2.2rem); text-transform: uppercase; letter-spacing: 6px; }
@@ -493,7 +493,7 @@
         .dresscode-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: 42px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px; }
         .dresscode-description { font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.7; color: #333; max-width: 340px; margin: 0 auto; }
 
-        /* ----- ПОЖЕЛАНИЯ (без фото пары) ----- */
+        /* ----- ПОЖЕЛАНИЯ ----- */
         .wishes-screen { background: #fff; padding: 60px 20px 40px; }
         .wishes-container { max-width: 450px; margin: 0 auto; text-align: center; }
         .wishes-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: 42px; text-transform: uppercase; letter-spacing: 4px; }
@@ -512,7 +512,7 @@
         .name-item { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 300; font-size: 46px; text-transform: uppercase; letter-spacing: 5px; color: #121212; }
         .ampersand-item { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; font-weight: 400; margin: 12px 0; }
 
-        /* ----- АНКЕТА ----- */
+        /* ----- АНКЕТА - МНОЖЕСТВЕННЫЙ ВЫБОР АЛКОГОЛЯ (ЧЕКБОКСЫ) ----- */
         .rsvp-screen { background: #fff; padding: 60px 20px; }
         .rsvp-container { max-width: 500px; margin: 0 auto; background: #fff; padding: 40px 30px; text-align: left; }
         .rsvp-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; text-align: center; margin-bottom: 12px; }
@@ -521,8 +521,39 @@
         .form-group input, .form-group select { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Montserrat', sans-serif; font-size: 16px; background: transparent; outline: none; color: #1a1a1a; }
         .form-group input:focus, .form-group select:focus { border-bottom-color: #1a1a1a; }
         .radio-group { display: flex; gap: 25px; margin-top: 8px; flex-wrap: wrap; }
-        .radio-group label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; }
+        .radio-group label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; margin-bottom: 0; }
         .radio-group input { width: auto; accent-color: #1a1a1a; }
+        /* Стили для чекбоксов (множественный выбор алкоголя) */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+            text-transform: none;
+            font-size: 14px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            accent-color: #1a1a1a;
+            cursor: pointer;
+        }
+        .drinks-hint {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+            font-style: italic;
+        }
         .submit-btn { display: block; width: 100%; background: #1a1a1a; color: white; border: none; padding: 14px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 30px; }
         .submit-btn:hover { background: #333; }
         .hidden-message { text-align: center; margin-top: 20px; font-size: 12px; color: #1a1a1a; display: none; }
@@ -576,6 +607,8 @@
             .ampersand-between { font-size: 4.5rem; left: -5px; top: 52%; }
             .alyona-name { margin-left: 50px; margin-top: -4px; }
             .name-item { font-size: 30px; letter-spacing: 3px; }
+            .checkbox-group { gap: 10px; }
+            .checkbox-group label { font-size: 12px; }
         }
     </style>
 </head>
@@ -637,7 +670,7 @@
     </div>
 </div>
 
-<!-- ОБНОВЛЕННЫЙ ТАЙМИНГ: 15:30 сбор, 16:00 регистрация, 17:30 банкет, 00:00 трансфер -->
+<!-- Тайминг -->
 <div class="timeline-screen" id="timelineScreen">
     <div class="timeline-container">
         <h2 class="timeline-main-title fade-up">Тайминг</h2>
@@ -678,11 +711,10 @@
             <span class="ampersand-item fade-up">&</span>
             <span class="name-item fade-up">Алина</span>
         </div>
-        <!-- ФОТО ПАРЫ УДАЛЕНО ПО ЗАПРОСУ -->
     </div>
 </div>
 
-<!-- АНКЕТА -->
+<!-- АНКЕТА — с выбором нескольких напитков (чеки) -->
 <div class="rsvp-screen" id="rsvpScreen">
     <div class="rsvp-container">
         <h2 class="rsvp-title rsvp-animate">Анкета гостя</h2>
@@ -691,7 +723,21 @@
             <div class="form-group rsvp-animate"><label>Ваше имя и фамилия</label><input type="text" name="name" id="guestName" placeholder="Например, Анна Петрова" required></div>
             <div class="form-group rsvp-animate"><label>Планируете ли вы присутствовать?</label><div class="radio-group"><label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label><label><input type="radio" name="attendance" value="no"> К сожалению, нет</label></div></div>
             <div class="form-group rsvp-animate"><label>Есть ли у вас аллергия на что-либо?</label><input type="text" name="allergy" placeholder="Укажите, если есть аллергия"></div>
-            <div class="form-group rsvp-animate"><label>Ваши предпочтения по алкоголю</label><select name="alcohol_preference"><option>Вино</option><option>Игристое</option><option>Виски</option><option>Водка</option><option>Коньяк</option><option>Не буду пить алкоголь</option></select></div>
+            
+            <!-- МНОЖЕСТВЕННЫЙ ВЫБОР НАПИТКОВ (ЧЕКБОКСЫ) вместо выпадающего списка -->
+            <div class="form-group rsvp-animate">
+                <label>Ваши предпочтения по алкоголю (можно выбрать несколько)</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="alcohol_preference" value="Вино"> Вино</label>
+                    <label><input type="checkbox" name="alcohol_preference" value="Игристое"> Игристое</label>
+                    <label><input type="checkbox" name="alcohol_preference" value="Виски"> Виски</label>
+                    <label><input type="checkbox" name="alcohol_preference" value="Водка"> Водка</label>
+                    <label><input type="checkbox" name="alcohol_preference" value="Коньяк"> Коньяк</label>
+                    <label><input type="checkbox" name="alcohol_preference" value="Не буду пить алкоголь"> Не буду пить алкоголь</label>
+                </div>
+                <div class="drinks-hint">✔️ Отметьте все варианты, которые вам нравятся</div>
+            </div>
+            
             <div class="form-group rsvp-animate"><label>Нужен ли вам трансфер из Минска?</label><select name="transfer"><option>Да</option><option>Нет</option><option>Только в усадьбу</option><option>Только из усадьбы</option></select></div>
             <div class="form-group rsvp-animate"><label>Будет ли с вами ребенок?</label><input type="text" name="children" placeholder="Да/ Нет"></div>
             <div class="form-group rsvp-animate"><label>Есть ли что-то, что вы хотели бы добавить или о чем нам нужно обязательно знать?</label><input type="text" name="additional_info" placeholder="Ваши пожелания..."></div>
