@@ -407,9 +407,10 @@
             pointer-events: none;
         }
 
+        /* Обводка сердца увеличена с 1.4 до 2.2 */
         .heart-path {
             stroke: #1a1a1a;
-            stroke-width: 1.4;
+            stroke-width: 2.2;
             fill: none;
         }
 
@@ -692,14 +693,23 @@
         .submit-btn:hover { background: #333; }
         .hidden-message { text-align: center; margin-top: 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #1a1a1a; display: none; }
 
-        /* ----- КОНТАКТЫ ----- */
+        /* ----- КОНТАКТЫ (добавлена новая строка) ----- */
         .contacts-screen {
             background: #ffffff;
             padding: 60px 20px 80px;
         }
         .contacts-container { max-width: 450px; margin: 0 auto; text-align: center; }
         .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; font-weight: 400; }
-        .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 50px; text-transform: none; }
+        .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 20px; text-transform: none; }
+        /* Новая строка с вопросом */
+        .contacts-question {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 35px;
+            letter-spacing: 0.5px;
+        }
         .contacts-list { display: flex; flex-direction: column; gap: 28px; margin-bottom: 45px; }
         .contact-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .contact-role { font-family: 'Montserrat', sans-serif; font-weight: 500; color: #1a1a1a; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; }
@@ -863,11 +873,12 @@
     </div>
 </div>
 
-<!-- КОНТАКТЫ: все элементы анимируются одновременно -->
+<!-- КОНТАКТЫ: добавлена новая строка "Остались вопросы? Обратитесь к нашему организатору" -->
 <div class="contacts-screen" id="contactsScreen">
     <div class="contacts-container">
         <h2 class="contacts-title contacts-animate">Контакты</h2>
         <div class="contacts-subtitle contacts-animate">остались вопросы? Мы на связи</div>
+        <div class="contacts-question contacts-animate">Остались вопросы? Обратитесь к нашему организатору</div>
         <div class="contacts-list">
             <div class="contact-item contacts-animate">
                 <div class="contact-role">Наш свадебный организатор</div>
