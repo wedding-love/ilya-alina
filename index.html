@@ -384,11 +384,11 @@
         }
         .empty-day { visibility: hidden; }
 
-        /* Сердце: тонкая обводка, увеличенное, чуть выше */
+        /* Сердце: расширенное вширь, тонкая обводка, чуть выше */
         .heart-svg {
             position: absolute;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -52%);
@@ -530,12 +530,11 @@
         .submit-btn:hover { background: #333; }
         .hidden-message { text-align: center; margin-top: 20px; font-size: 12px; color: #1a1a1a; display: none; }
 
-        /* ----- КОНТАКТЫ (с новой серой строкой) ----- */
+        /* ----- КОНТАКТЫ ----- */
         .contacts-screen { background: #fff; padding: 60px 20px 80px; }
         .contacts-container { max-width: 450px; margin: 0 auto; text-align: center; }
         .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; }
         .contacts-subtitle { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 1px; color: #777; margin-bottom: 20px; }
-        /* Новая серая строка */
         .contacts-question-gray {
             font-family: 'Montserrat', sans-serif;
             font-size: 14px;
@@ -619,7 +618,11 @@
                 <div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div>
                 <div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div>
                 <div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div>
-                <div class="day special-day">28<svg class="heart-svg" viewBox="0 0 50 50"><path class="heart-path" d="M25,15 C21,8 11,9 11,18 C11,27 23,36 25,38 C27,36 39,27 39,18 C39,9 29,8 25,15 Z"/></svg></div>
+                <div class="day special-day">28
+                    <svg class="heart-svg" viewBox="0 0 60 50" preserveAspectRatio="none">
+                        <path class="heart-path" d="M30,15 C24,6 10,8 10,20 C10,32 26,42 30,44 C34,42 50,32 50,20 C50,8 36,6 30,15 Z" transform="scale(1.1, 1) translate(-3, 0)"/>
+                    </svg>
+                </div>
                 <div class="day">29</div><div class="day">30</div><div class="day">31</div>
             </div>
         </div>
@@ -692,7 +695,7 @@
             <div class="form-group rsvp-animate"><label>Есть ли у вас аллергия на что-либо?</label><input type="text" name="allergy" placeholder="Укажите, если есть аллергия"></div>
             <div class="form-group rsvp-animate"><label>Ваши предпочтения по алкоголю</label><select name="alcohol_preference"><option>Вино</option><option>Игристое</option><option>Виски</option><option>Водка</option><option>Коньяк</option><option>Не буду пить алкоголь</option></select></div>
             <div class="form-group rsvp-animate"><label>Нужен ли вам трансфер из Минска?</label><select name="transfer"><option>Да</option><option>Нет</option><option>Только в усадьбу</option><option>Только из усадьбы</option></select></div>
-            <div class="form-group rsvp-animate"><label>Будет ли с вами ребенок?</label><input type="text" name="children" placeholder="Да / Нет"></div>
+            <div class="form-group rsvp-animate"><label>Будет ли с вами ребенок?</label><input type="text" name="children" placeholder="Да/ Нет"></div>
             <div class="form-group rsvp-animate"><label>Есть ли что-то, что вы хотели бы добавить или о чем нам нужно обязательно знать?</label><input type="text" name="additional_info" placeholder="Ваши пожелания..."></div>
             <button type="submit" class="submit-btn rsvp-animate">Отправить ответ</button>
             <div id="formMessage" class="hidden-message">Спасибо! Ждём вас на нашей свадьбе</div>
