@@ -512,7 +512,7 @@
         .name-item { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 300; font-size: 46px; text-transform: uppercase; letter-spacing: 5px; color: #121212; }
         .ampersand-item { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; font-weight: 400; margin: 12px 0; }
 
-        /* ----- АНКЕТА - МНОЖЕСТВЕННЫЙ ВЫБОР АЛКОГОЛЯ (ЧЕКБОКСЫ) ----- */
+        /* ----- АНКЕТА - ВЫБОР НАПИТКОВ СТОЛБИКОМ (адаптивно) ----- */
         .rsvp-screen { background: #fff; padding: 60px 20px; }
         .rsvp-container { max-width: 500px; margin: 0 auto; background: #fff; padding: 40px 30px; text-align: left; }
         .rsvp-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; text-align: center; margin-bottom: 12px; }
@@ -523,22 +523,24 @@
         .radio-group { display: flex; gap: 25px; margin-top: 8px; flex-wrap: wrap; }
         .radio-group label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; margin-bottom: 0; }
         .radio-group input { width: auto; accent-color: #1a1a1a; }
-        /* Стили для чекбоксов (множественный выбор алкоголя) */
+        
+        /* Стили для чекбоксов — В СТОЛБИК на всех разрешениях */
         .checkbox-group {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            flex-direction: column;
+            gap: 12px;
             margin-top: 10px;
         }
         .checkbox-group label {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-weight: 400;
             text-transform: none;
-            font-size: 14px;
+            font-size: 15px;
             margin-bottom: 0;
             cursor: pointer;
+            padding: 4px 0;
         }
         .checkbox-group input[type="checkbox"] {
             width: 18px;
@@ -546,14 +548,16 @@
             margin: 0;
             accent-color: #1a1a1a;
             cursor: pointer;
+            flex-shrink: 0;
         }
         .drinks-hint {
             font-family: 'Montserrat', sans-serif;
             font-size: 11px;
             color: #888;
-            margin-top: 5px;
+            margin-top: 8px;
             font-style: italic;
         }
+        
         .submit-btn { display: block; width: 100%; background: #1a1a1a; color: white; border: none; padding: 14px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 30px; }
         .submit-btn:hover { background: #333; }
         .hidden-message { text-align: center; margin-top: 20px; font-size: 12px; color: #1a1a1a; display: none; }
@@ -601,6 +605,7 @@
             .ampersand-between { font-size: 5.5rem; left: -8px; top: 54%; }
             .alyona-name { margin-left: 58px; margin-top: -5px; }
             .name-item { font-size: 36px; letter-spacing: 4px; }
+            .checkbox-group label { font-size: 14px; }
         }
         @media (max-width: 480px) {
             .name-line { font-size: 2.4rem; }
@@ -608,7 +613,7 @@
             .alyona-name { margin-left: 50px; margin-top: -4px; }
             .name-item { font-size: 30px; letter-spacing: 3px; }
             .checkbox-group { gap: 10px; }
-            .checkbox-group label { font-size: 12px; }
+            .checkbox-group label { font-size: 13px; }
         }
     </style>
 </head>
@@ -670,7 +675,6 @@
     </div>
 </div>
 
-<!-- Тайминг -->
 <div class="timeline-screen" id="timelineScreen">
     <div class="timeline-container">
         <h2 class="timeline-main-title fade-up">Тайминг</h2>
@@ -714,7 +718,7 @@
     </div>
 </div>
 
-<!-- АНКЕТА — с выбором нескольких напитков (чеки) -->
+<!-- АНКЕТА — список напитков строго в столбик (адаптивно) -->
 <div class="rsvp-screen" id="rsvpScreen">
     <div class="rsvp-container">
         <h2 class="rsvp-title rsvp-animate">Анкета гостя</h2>
@@ -724,7 +728,7 @@
             <div class="form-group rsvp-animate"><label>Планируете ли вы присутствовать?</label><div class="radio-group"><label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label><label><input type="radio" name="attendance" value="no"> К сожалению, нет</label></div></div>
             <div class="form-group rsvp-animate"><label>Есть ли у вас аллергия на что-либо?</label><input type="text" name="allergy" placeholder="Укажите, если есть аллергия"></div>
             
-            <!-- МНОЖЕСТВЕННЫЙ ВЫБОР НАПИТКОВ (ЧЕКБОКСЫ) вместо выпадающего списка -->
+            <!-- МНОЖЕСТВЕННЫЙ ВЫБОР НАПИТКОВ — ВЕРТИКАЛЬНЫЙ СПИСОК (СТОЛБИК) на всех экранах -->
             <div class="form-group rsvp-animate">
                 <label>Ваши предпочтения по алкоголю (можно выбрать несколько)</label>
                 <div class="checkbox-group">
@@ -747,7 +751,6 @@
     </div>
 </div>
 
-<!-- КОНТАКТЫ -->
 <div class="contacts-screen" id="contactsScreen">
     <div class="contacts-container">
         <h2 class="contacts-title contacts-animate">Контакты</h2>
