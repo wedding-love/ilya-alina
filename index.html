@@ -33,7 +33,7 @@
         html, body {
             width: 100%;
             overflow-x: hidden;
-            scroll-behavior: auto; /* без глобальной плавности — только по клику */
+            scroll-behavior: auto; /* без глобальной плавности */
         }
 
         body {
@@ -42,40 +42,31 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Первый экран — убран overflow:hidden, чтобы не было залипания */
+        /* ПЕРВЫЙ ЭКРАН — фон напрямую, без лишних обёрток */
         .first-screen {
             position: relative;
             width: 100%;
             height: 100vh;
             height: 100dvh;
-            background-color: #ffffff;
-        }
-
-        .photo-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             background-image: url('главная.png');
             background-size: cover;
             background-position: center 30%;
-            opacity: 0;
+            background-repeat: no-repeat;
             filter: brightness(0.85) contrast(1.02);
-            transition: opacity 3.5s ease-out;
-            z-index: 1;
+            transition: filter 0.3s ease;
         }
 
-        .photo-bg.visible { opacity: 1; }
-        .soft-veil {
+        /* Тонкая затемняющая вуаль через псевдоэлемент */
+        .first-screen::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: radial-gradient(circle at 30% 40%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
-            z-index: 2;
             pointer-events: none;
+            z-index: 1;
         }
 
         .content-first {
@@ -174,6 +165,7 @@
 
         .arrow-icon-svg { margin-left: 8px; width: 11px; height: 11px; stroke: #1a1a1a; }
 
+        /* ВТОРОЙ ЭКРАН И ПОСЛЕДУЮЩИЕ — без изменений */
         .second-screen { width: 100%; background: #fff; padding: 60px 20px; }
         .invitation-container { text-align: center; max-width: 400px; margin: 0 auto; }
         .title {
@@ -483,8 +475,6 @@
 <body>
 
 <div class="first-screen" id="firstScreen">
-    <div class="photo-bg" id="photoBg"></div>
-    <div class="soft-veil"></div>
     <div class="content-first">
         <div class="wedding-script" id="weddingScript">Wedding</div>
         <div class="names-block-first">
@@ -660,11 +650,10 @@
             });
         }
         
-        // Анимация появления первого экрана
+        // Анимация появления элементов первого экрана
         const firstObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => document.getElementById('photoBg')?.classList.add('visible'), 100);
                     setTimeout(() => document.getElementById('weddingScript')?.classList.add('visible'), 800);
                     setTimeout(() => document.getElementById('artemName')?.classList.add('visible'), 1400);
                     setTimeout(() => document.getElementById('ekaterinaName')?.classList.add('visible'), 1800);
@@ -675,7 +664,7 @@
         }, { threshold: 0.1 });
         firstObserver.observe(document.getElementById('firstScreen'));
 
-        // Анимация второго экрана
+        // Второй экран
         const secondContainer = document.querySelector('.invitation-container');
         if (secondContainer) {
             let obs = new IntersectionObserver((entries) => {
@@ -837,7 +826,7 @@
             nextBtn.onclick = () => showSlide(currentSlide+1);
         }
 
-        // Отправка формы
+        // Форма
         const form = document.getElementById('guestForm');
         const messageDiv = document.getElementById('formMessage');
         if (form) {
