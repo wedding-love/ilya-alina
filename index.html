@@ -4,32 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Приглашение на свадьбу | Илья & Алина</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@100;200;300;400;500;700;800&family=Parisienne&family=Pinyon+Script&display=swap" rel="stylesheet">
+    
     <style>
         @font-face {
             font-family: 'Lighthaus';
             src: url('Lighthaus.otf') format('opentype');
             font-weight: 300;
+            font-style: normal;
             font-display: swap;
         }
+        
         @font-face {
             font-family: 'Lighthaus';
             src: url('Lighthaus.otf') format('opentype');
             font-weight: 400;
+            font-style: normal;
             font-display: swap;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         html, body {
             width: 100%;
             overflow-x: hidden;
-            scroll-behavior: auto;
+            scroll-behavior: auto; /* естественная прокрутка без плавности */
         }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #fff;
-            -webkit-overflow-scrolling: touch;
+            background-color: #ffffff;
+            -webkit-overflow-scrolling: touch; /* плавность на iOS */
         }
-        /* Первый экран: фон напрямую, без overflow */
+
+        /* ПЕРВЫЙ ЭКРАН — без overflow:hidden, с фоновым изображением */
         .first-screen {
             position: relative;
             width: 100%;
@@ -40,7 +53,14 @@
             background-position: center 30%;
             background-repeat: no-repeat;
             filter: brightness(0.85) contrast(1.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
         }
+
+        /* Затемнение через псевдоэлемент */
         .first-screen::before {
             content: '';
             position: absolute;
@@ -52,6 +72,7 @@
             pointer-events: none;
             z-index: 1;
         }
+
         .content-first {
             position: relative;
             z-index: 3;
@@ -61,8 +82,8 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem;
         }
+
         .wedding-script {
             font-family: 'Parisienne', cursive;
             font-size: 3.2rem;
@@ -74,6 +95,7 @@
             transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
         }
         .wedding-script.visible { opacity: 1; transform: translateY(0); }
+
         .names-block-first {
             position: absolute;
             bottom: 115px;
@@ -87,7 +109,7 @@
             font-size: 4.2rem;
             letter-spacing: 5px;
             text-transform: uppercase;
-            color: #fff;
+            color: #ffffff;
             text-shadow: 0 1px 8px rgba(0,0,0,0.4);
             opacity: 0;
             line-height: 1.2;
@@ -95,6 +117,7 @@
         .artem-name { transform: translateX(-35px); transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1); }
         .ekaterina-name { margin-left: 128px; transform: translateX(35px); transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1); }
         .artem-name.visible, .ekaterina-name.visible { opacity: 1; transform: translateX(0); }
+
         .delicate-ampersand {
             position: absolute;
             left: -5px;
@@ -110,6 +133,7 @@
             transition: opacity 3s ease, transform 3s ease;
         }
         .delicate-ampersand.visible { opacity: 0.25; transform: translateY(-50%) scale(1); }
+
         .scroll-down {
             position: absolute;
             bottom: 50px;
@@ -118,9 +142,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.96);
+            background: rgba(255, 255, 255, 0.96);
             color: #1a1a1a;
             padding: 8px 22px;
+            border-radius: 0px;
             font-size: 0.7rem;
             text-transform: uppercase;
             cursor: pointer;
@@ -134,27 +159,69 @@
             transition: background 0.2s ease, transform 0.2s ease;
             border: none;
         }
+
         .scroll-down:hover {
             background: white;
             transform: translateX(-50%) scale(1.02);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
         }
+
         .arrow-icon-svg { margin-left: 8px; width: 11px; height: 11px; stroke: #1a1a1a; }
-        /* Второй и остальные блоки — без изменений, скопированы из предыдущего ответа */
+
+        /* ВТОРОЙ ЭКРАН И ОСТАЛЬНЫЕ БЛОКИ */
         .second-screen { width: 100%; background: #fff; padding: 60px 20px; }
         .invitation-container { text-align: center; max-width: 400px; margin: 0 auto; }
-        .title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: clamp(2rem,4.5vw,2.5rem); letter-spacing: 2px; line-height: 1.2; color: #1a1a1a; margin-bottom: 20px; opacity: 0; transform: translateY(50px); transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1); }
-        .save-the-date { font-family: 'Pinyon Script', cursive; font-size: clamp(2rem,4.5vw,2.4rem); color: #1a1a1a; margin-bottom: 25px; opacity: 0; transform: translateY(50px); transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1); }
-        .description-text { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; line-height: 1.5; color: #555; font-weight: 300; max-width: 320px; margin: 0 auto 35px; opacity: 0; transform: translateY(50px); transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1); }
+        .title {
+            font-family: 'Lighthaus', 'Quicksand', sans-serif;
+            font-weight: 400;
+            font-size: clamp(2rem, 4.5vw, 2.5rem);
+            letter-spacing: 2px;
+            line-height: 1.2;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
+        }
+        .save-the-date {
+            font-family: 'Pinyon Script', cursive;
+            font-size: clamp(2rem, 4.5vw, 2.4rem);
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
+        }
+        .description-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #555;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            max-width: 320px;
+            margin: 0 auto 35px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1);
+        }
         .line { width: 1px; background: #1a1a1a; height: 60px; margin: 0 auto; opacity: 0; transform: scaleY(0); transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1); }
         .line-top { margin-bottom: 30px; transform-origin: top; }
         .line-bottom { margin-top: 30px; margin-bottom: 50px; transform-origin: bottom; }
-        .date-block { display: flex; justify-content: center; align-items: baseline; gap: 5px; }
-        .date-number { font-family: 'Bodoni Moda','Playfair Display',serif; font-size: clamp(2.8rem,6.5vw,3.5rem); font-weight: 400; color: #1a1a1a; line-height: 0.9; opacity: 0; }
+        .date-block { display: flex; flex-direction: row; justify-content: center; align-items: baseline; gap: 5px; }
+        .date-number {
+            font-family: 'Bodoni Moda', 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 6.5vw, 3.5rem);
+            font-weight: 400;
+            color: #1a1a1a;
+            line-height: 0.9;
+            opacity: 0;
+        }
         .from-left-1, .from-left-2 { transform: translateX(-100px); transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1); }
         .from-right { transform: translateX(100px); transition: opacity 2.5s cubic-bezier(0.2,0.9,0.3,1.1), transform 2.5s cubic-bezier(0.2,0.9,0.3,1.1); }
         .dot { font-size: 1.3rem; color: #1a1a1a; margin: 0 3px; opacity: 0; transition: opacity 2s ease; }
         .calendar-section { max-width: 280px; margin: 0 auto; opacity: 0; transform: translateY(120px); transition: opacity 3.5s cubic-bezier(0.16,1,0.3,1.1), transform 3.5s cubic-bezier(0.16,1,0.3,1.1); }
-        .calendar-month { font-family: 'Bodoni Moda','Playfair Display',serif; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
+        .calendar-month { font-family: 'Bodoni Moda', 'Playfair Display', serif; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 12px 6px; }
         .weekday { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 400; color: #999; text-transform: lowercase; }
         .day { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 300; color: #1a1a1a; position: relative; height: 32px; display: flex; justify-content: center; align-items: center; }
@@ -166,103 +233,245 @@
         .date-number.visible { opacity: 1; transform: translateX(0); }
         .dot.visible { opacity: 1; }
         .calendar-section.visible { opacity: 1; transform: translateY(0); }
-        /* локация, тайминг, дресс-код, пожелания, финальное фото, анкета, контакты — идентичны предыдущим, для краткости оставлены базовые стили */
-        .location-section { position: relative; max-width: 450px; margin: 0 auto; padding: 50px 25px; background: #fff; opacity: 0; transition: opacity 0.5s ease; min-height: 420px; }
+
+        /* ЛОКАЦИЯ */
+        .location-section {
+            position: relative;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 50px 25px;
+            background: #fff;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            min-height: 420px;
+        }
         .location-section.visible { opacity: 1; }
-        .location-bg { position: absolute; top:0; left:0; width:100%; height:100%; background-image: url('локация.png'); background-size: cover; background-position: center; opacity: 0; filter: grayscale(100%); transition: opacity 2.5s cubic-bezier(0.2,0.9,0.4,1) 0.3s; z-index:1; }
-        .location-card { position: relative; z-index:2; background:#fff; padding:40px 25px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.03); }
-        .icon-scene { width:70px; height:70px; margin:0 auto 20px; opacity:0; transform:scale(0.8); transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1); }
-        .location-title { font-family:'Lighthaus','Quicksand',sans-serif; font-weight:400; font-size:clamp(1.6rem,4vw,2rem); text-transform:uppercase; letter-spacing:2px; margin-bottom:10px; opacity:0; transform:translateX(-60px); transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1); }
-        .save-the-place { font-family:'Pinyon Script', cursive; font-size:clamp(2rem,5vw,2.5rem); margin-bottom:20px; display:inline-block; transform:skewX(-3deg) translateX(60px); opacity:0; transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1); }
-        .venue-name { font-family:'Montserrat',sans-serif; font-size:0.95rem; font-weight:700; line-height:1.5; max-width:280px; margin:0 auto 30px; text-transform:uppercase; letter-spacing:0.5px; opacity:0; transform:translateY(55px); transition: opacity 2.8s cubic-bezier(0.16,1,0.3,1.1), transform 2.8s cubic-bezier(0.16,1,0.3,1.1); color:#1a1a1a; }
-        .btn-maps { display:inline-block; background:#1a1a1a; color:#fff; text-decoration:none; font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:400; letter-spacing:2px; padding:12px 30px; text-transform:uppercase; opacity:0; transform:translateY(55px); transition: opacity 3s cubic-bezier(0.16,1,0.3,1.1), transform 3s cubic-bezier(0.16,1,0.3,1.1); }
-        .btn-maps:hover { background:#333; }
-        .location-section.visible .location-bg { opacity:0.9; }
-        .location-section.visible .icon-scene { opacity:1; transform:scale(1); }
-        .location-section.visible .location-title { opacity:1; transform:translateX(0); }
-        .location-section.visible .save-the-place { opacity:1; transform:skewX(-3deg) translateX(0); }
-        .location-section.visible .venue-name { opacity:1; transform:translateY(0); }
-        .location-section.visible .btn-maps { opacity:1; transform:translateY(0); }
-        .timeline-screen { background:#fff; padding:50px 20px 60px; }
-        .timeline-container { max-width:400px; margin:0 auto; text-align:center; opacity:0; transform:translateY(30px); transition: opacity 1.8s cubic-bezier(0.2,0.9,0.3,1.1), transform 1.8s cubic-bezier(0.2,0.9,0.3,1.1); }
-        .timeline-container.visible { opacity:1; transform:translateY(0); }
-        .timeline-main-title { font-family:'Lighthaus','Quicksand',sans-serif; font-weight:400; font-size:clamp(1.8rem,4.5vw,2.2rem); text-transform:uppercase; letter-spacing:6px; margin-bottom:8px; }
-        .timeline-subtitle { font-family:'Pinyon Script',cursive; font-size:clamp(1.3rem,3.5vw,1.6rem); margin-bottom:25px; }
-        .timeline-middle-line { width:1px; background:#b5b5b5; margin:0 auto 30px; height:50px; }
-        .timeline-list { margin:35px 0 25px; }
-        .timeline-item { margin:30px 0; opacity:0; transition: opacity 0.8s cubic-bezier(0.2,0.9,0.3,1.1), transform 0.8s cubic-bezier(0.2,0.9,0.3,1.1); }
-        .timeline-item.slide-left { transform:translateX(-40px); }
-        .timeline-item.slide-right { transform:translateX(40px); }
-        .timeline-item.visible { opacity:1; transform:translateX(0); }
-        .timeline-item .time { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:500; margin-bottom:6px; }
-        .timeline-item .timeline-desc { font-family:'Montserrat',sans-serif; font-size:14px; font-weight:400; color:#333; max-width:300px; margin:0 auto; }
-        .dresscode-screen { background:#fff; padding:40px 16px 60px; }
-        .dresscode-container { max-width:450px; margin:0 auto; text-align:center; }
-        .dresscode-main-title { font-family:'Lighthaus','Quicksand',sans-serif; font-weight:400; font-size:42px; text-transform:uppercase; letter-spacing:3px; margin-bottom:15px; opacity:0; transform:translateY(40px); transition: opacity 2s cubic-bezier(0.25,0.8,0.4,1), transform 2s cubic-bezier(0.25,0.8,0.4,1); }
-        .dresscode-description { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:400; line-height:1.7; color:#333; max-width:340px; margin:0 auto 20px; opacity:0; transform:translateY(40px); transition: opacity 2s cubic-bezier(0.25,0.8,0.4,1), transform 2s cubic-bezier(0.25,0.8,0.4,1); }
-        .dresscode-main-title.visible, .dresscode-description.visible { opacity:1; transform:translate(0); }
-        .wishes-screen { background:#fff; padding:60px 20px 40px; }
-        .wishes-container { max-width:450px; margin:0 auto; text-align:center; }
-        .anim-slide-up, .anim-fade-in, .anim-slide-left, .anim-slide-right { opacity:0; transition: opacity 2s cubic-bezier(0.25,0.8,0.4,1), transform 2s cubic-bezier(0.25,0.8,0.4,1); }
-        .anim-slide-up { transform:translateY(40px); }
-        .anim-slide-left { transform:translateX(-40px); }
-        .anim-slide-right { transform:translateX(40px); }
-        .anim-fade-in { transform:none; }
-        .anim-slide-up.visible, .anim-fade-in.visible, .anim-slide-left.visible, .anim-slide-right.visible { opacity:1; transform:translate(0) !important; }
-        .wishes-main-title { font-family:'Lighthaus','Quicksand',sans-serif; font-weight:400; font-size:42px; text-transform:uppercase; letter-spacing:4px; margin-bottom:10px; }
-        .wishes-handwritten-subtitle { font-family:'Pinyon Script',cursive; font-size:34px; margin-bottom:35px; }
-        .slider-wrapper { position:relative; display:flex; align-items:center; justify-content:center; min-height:200px; margin-bottom:50px; padding:0 40px; }
-        .slider-content { width:100%; position:relative; }
-        .slide-text { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:400; line-height:1.6; color:#444; position:absolute; top:50%; left:0; right:0; transform:translateY(-50%); opacity:0; visibility:hidden; transition: opacity 1.2s ease, visibility 1.2s ease; }
-        .slide-text.active { opacity:1; visibility:visible; position:relative; transform:none; }
-        .slider-arrow { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; padding:10px; }
-        .arrow-left { left:-5px; }
-        .arrow-right { right:-5px; }
-        .slider-arrow svg { width:24px; height:16px; fill:none; stroke:#121212; stroke-width:1px; }
-        .wishes-vertical-divider { width:1px; height:60px; background-color:#b5b5b5; margin:0 auto 35px; }
-        .pre-closing { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:300; line-height:1.6; color:#121212; margin-bottom:35px; }
-        .wishes-names-block { display:flex; flex-direction:column; align-items:center; margin-bottom:45px; }
-        .name-item { font-family:'Lighthaus','Quicksand',sans-serif; font-weight:300; font-size:46px; text-transform:uppercase; letter-spacing:5px; line-height:1.1; color:#121212; }
-        .ampersand-item { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:38px; font-weight:400; color:#121212; margin:12px 0; }
-        .final-photo-block { width:100%; max-width:380px; margin:30px auto 0; padding:0 10px; opacity:0; transform:translateY(40px); transition: opacity 2s cubic-bezier(0.25,0.8,0.4,1), transform 2s cubic-bezier(0.25,0.8,0.4,1); }
-        .final-photo-block.visible { opacity:1; transform:translateY(0); }
-        .final-couple-img { width:100%; aspect-ratio:4/5; background-image:url('главная.png'); background-size:cover; background-position:center 35%; background-color:#f5f5f5; box-shadow:0 8px 20px rgba(0,0,0,0.05); }
-        .rsvp-screen { background:#fff; padding:60px 20px; opacity:0; transform:translateY(50px); transition: opacity 0.9s cubic-bezier(0.25,0.8,0.4,1), transform 0.9s cubic-bezier(0.25,0.8,0.4,1); }
-        .rsvp-screen.visible { opacity:1; transform:translateY(0); }
-        .rsvp-container { max-width:500px; margin:0 auto; background:#fff; padding:40px 30px; text-align:left; }
-        .rsvp-title { font-family:'Lighthaus','Quicksand',sans-serif; font-size:32px; text-transform:uppercase; letter-spacing:3px; color:#1a1a1a; margin-bottom:20px; text-align:center; }
-        .form-group { margin-bottom:25px; text-align:left; }
-        .form-group label { display:block; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; color:#1a1a1a; }
-        .form-group input, .form-group select { width:100%; padding:12px 0; border:none; border-bottom:1px solid #ddd; font-family:'Montserrat',sans-serif; font-size:16px; background:transparent; outline:none; color:#1a1a1a; }
-        .radio-group { display:flex; gap:25px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start; }
-        .radio-group label { display:flex; align-items:center; gap:8px; font-weight:400; text-transform:none; font-size:14px; }
-        .radio-group input { width:auto; margin:0; accent-color:#1a1a1a; }
-        .submit-btn { display:block; width:100%; background:#1a1a1a; color:#fff; border:none; padding:14px; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; cursor:pointer; margin-top:30px; }
-        .submit-btn:hover { background:#333; }
-        .hidden-message { text-align:center; margin-top:20px; font-size:12px; color:#1a1a1a; display:none; }
-        .contacts-screen { background:#fff; padding:60px 20px 80px; opacity:0; transform:translateY(50px); transition: opacity 0.9s cubic-bezier(0.25,0.8,0.4,1), transform 0.9s cubic-bezier(0.25,0.8,0.4,1); }
-        .contacts-screen.visible { opacity:1; transform:translateY(0); }
-        .contacts-container { max-width:450px; margin:0 auto; text-align:center; }
-        .contacts-title { font-family:'Lighthaus','Quicksand',sans-serif; font-size:32px; text-transform:uppercase; letter-spacing:3px; margin-bottom:15px; font-weight:400; }
-        .contacts-subtitle { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:300; letter-spacing:1px; color:#777; margin-bottom:35px; line-height:1.5; }
-        .contacts-list { display:flex; flex-direction:column; gap:28px; margin-bottom:45px; }
-        .contact-row { display:flex; flex-direction:column; align-items:center; gap:8px; }
-        .contact-role { font-weight:500; text-transform:uppercase; font-size:11px; letter-spacing:1.5px; }
-        .contact-info a { color:#333; text-decoration:none; }
-        .contact-telegram { font-size:12px; color:#555; }
-        .contacts-divider { width:1px; height:50px; background:#d0d0d0; margin:0 auto 35px; }
-        .contacts-copyright { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:1.5px; color:#aaa; text-transform:uppercase; }
-        @media (max-width:768px) {
-            .name-line { font-size:3.4rem; }
-            .ekaterina-name { margin-left:104px; }
+        .location-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('локация.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            filter: grayscale(100%);
+            transition: opacity 2.5s cubic-bezier(0.2,0.9,0.4,1) 0.3s;
+            z-index: 1;
         }
-        @media (max-width:580px) {
-            .name-line { font-size:2.8rem; }
-            .ekaterina-name { margin-left:86px; }
+        .location-card {
+            position: relative;
+            z-index: 2;
+            background: #fff;
+            padding: 40px 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
-        @media (max-width:480px) {
-            .name-line { font-size:2.4rem; }
-            .ekaterina-name { margin-left:74px; }
+        .icon-scene { width: 70px; height: 70px; margin: 0 auto 20px; opacity: 0; transform: scale(0.8); transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1); }
+        .location-title {
+            font-family: 'Lighthaus', 'Quicksand', sans-serif;
+            font-weight: 400;
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1);
+        }
+        .save-the-place {
+            font-family: 'Pinyon Script', cursive;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 20px;
+            display: inline-block;
+            transform: skewX(-3deg) translateX(60px);
+            opacity: 0;
+            transition: opacity 2s cubic-bezier(0.2,0.9,0.3,1.1), transform 2s cubic-bezier(0.2,0.9,0.3,1.1);
+        }
+        .venue-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.5;
+            max-width: 280px;
+            margin: 0 auto 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            transform: translateY(55px);
+            transition: opacity 2.8s cubic-bezier(0.16,1,0.3,1.1), transform 2.8s cubic-bezier(0.16,1,0.3,1.1);
+            color: #1a1a1a;
+        }
+        .btn-maps {
+            display: inline-block;
+            background: #1a1a1a;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            padding: 12px 30px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(55px);
+            transition: opacity 3s cubic-bezier(0.16,1,0.3,1.1), transform 3s cubic-bezier(0.16,1,0.3,1.1);
+        }
+        .btn-maps:hover { background: #333; }
+        .location-section.visible .location-bg { opacity: 0.9; }
+        .location-section.visible .icon-scene { opacity: 1; transform: scale(1); }
+        .location-section.visible .location-title { opacity: 1; transform: translateX(0); }
+        .location-section.visible .save-the-place { opacity: 1; transform: skewX(-3deg) translateX(0); }
+        .location-section.visible .venue-name { opacity: 1; transform: translateY(0); }
+        .location-section.visible .btn-maps { opacity: 1; transform: translateY(0); }
+
+        .timeline-screen { background: #fff; padding: 50px 20px 60px; }
+        .timeline-container { max-width: 400px; margin: 0 auto; text-align: center; opacity: 0; transform: translateY(30px); transition: opacity 1.8s cubic-bezier(0.2,0.9,0.3,1.1), transform 1.8s cubic-bezier(0.2,0.9,0.3,1.1); }
+        .timeline-container.visible { opacity: 1; transform: translateY(0); }
+        .timeline-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: clamp(1.8rem, 4.5vw, 2.2rem); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 8px; }
+        .timeline-subtitle { font-family: 'Pinyon Script', cursive; font-size: clamp(1.3rem, 3.5vw, 1.6rem); margin-bottom: 25px; }
+        .timeline-middle-line { width: 1px; background: #b5b5b5; margin: 0 auto 30px auto; height: 50px; }
+        .timeline-list { margin: 35px 0 25px; }
+        .timeline-item { margin: 30px 0; opacity: 0; transition: opacity 0.8s cubic-bezier(0.2,0.9,0.3,1.1), transform 0.8s cubic-bezier(0.2,0.9,0.3,1.1); }
+        .timeline-item.slide-left { transform: translateX(-40px); }
+        .timeline-item.slide-right { transform: translateX(40px); }
+        .timeline-item.visible { opacity: 1; transform: translateX(0); }
+        .timeline-item .time { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; margin-bottom: 6px; }
+        .timeline-item .timeline-desc { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; color: #333; max-width: 300px; margin: 0 auto; }
+
+        .dresscode-screen { background: #fff; padding: 40px 16px 60px; }
+        .dresscode-container { width: 100%; max-width: 450px; margin: 0 auto; text-align: center; position: relative; }
+        .dresscode-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: 42px; text-transform: uppercase; letter-spacing: 3px; line-height: 1.2; color: #121212; margin-bottom: 15px; opacity: 0; transform: translateY(40px); transition: opacity 2s cubic-bezier(0.25, 0.8, 0.4, 1), transform 2s cubic-bezier(0.25, 0.8, 0.4, 1); }
+        .dresscode-description { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.7; color: #333; max-width: 340px; margin: 0 auto 20px auto; opacity: 0; transform: translateY(40px); transition: opacity 2s cubic-bezier(0.25, 0.8, 0.4, 1), transform 2s cubic-bezier(0.25, 0.8, 0.4, 1); font-style: normal; }
+        .dresscode-main-title.visible, .dresscode-description.visible { opacity: 1; transform: translate(0); }
+
+        .wishes-screen { background: #ffffff; padding: 60px 20px 40px; }
+        .wishes-container { max-width: 450px; margin: 0 auto; text-align: center; }
+        .anim-slide-up, .anim-fade-in, .anim-slide-left, .anim-slide-right { opacity: 0; transition: opacity 2s cubic-bezier(0.25, 0.8, 0.4, 1), transform 2s cubic-bezier(0.25, 0.8, 0.4, 1); }
+        .anim-slide-up { transform: translateY(40px); }
+        .anim-slide-left { transform: translateX(-40px); }
+        .anim-slide-right { transform: translateX(40px); }
+        .anim-fade-in { transform: none; }
+        .anim-slide-up.visible, .anim-fade-in.visible, .anim-slide-left.visible, .anim-slide-right.visible { opacity: 1; transform: translate(0) !important; }
+        .wishes-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: 42px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; }
+        .wishes-handwritten-subtitle { font-family: 'Pinyon Script', cursive; font-size: 34px; margin-bottom: 35px; }
+        .slider-wrapper { position: relative; display: flex; align-items: center; justify-content: center; min-height: 200px; margin-bottom: 50px; padding: 0 40px; }
+        .slider-content { width: 100%; position: relative; }
+        .slide-text { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 400; line-height: 1.6; color: #444; position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); opacity: 0; visibility: hidden; transition: opacity 1.2s ease, visibility 1.2s ease; }
+        .slide-text.active { opacity: 1; visibility: visible; position: relative; transform: none; }
+        .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 10px; }
+        .arrow-left { left: -5px; }
+        .arrow-right { right: -5px; }
+        .slider-arrow svg { width: 24px; height: 16px; fill: none; stroke: #121212; stroke-width: 1px; }
+        .wishes-vertical-divider { width: 1px; height: 60px; background-color: #b5b5b5; margin: 0 auto 35px auto; }
+        .pre-closing { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; line-height: 1.6; color: #121212; margin-bottom: 35px; }
+        .wishes-names-block { display: flex; flex-direction: column; align-items: center; margin-bottom: 45px; }
+        .name-item { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 300; font-size: 46px; text-transform: uppercase; letter-spacing: 5px; line-height: 1.1; color: #121212; }
+        .ampersand-item { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; font-weight: 400; color: #121212; margin: 12px 0; }
+        
+        .final-photo-block {
+            width: 100%;
+            max-width: 380px;
+            margin: 30px auto 0;
+            padding: 0 10px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 2s cubic-bezier(0.25,0.8,0.4,1), transform 2s cubic-bezier(0.25,0.8,0.4,1);
+        }
+        .final-photo-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .final-couple-img {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            background-image: url('главная.png');
+            background-size: cover;
+            background-position: center 35%;
+            background-color: #f5f5f5;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        .rsvp-screen {
+            background: #ffffff;
+            padding: 60px 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.8, 0.4, 1), transform 0.9s cubic-bezier(0.25, 0.8, 0.4, 1);
+        }
+        .rsvp-screen.visible { opacity: 1; transform: translateY(0); }
+        .rsvp-container { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 40px 30px; box-shadow: none; text-align: left; }
+        .rsvp-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 25px; text-align: left; }
+        .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: #1a1a1a; text-align: left; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ddd; font-family: 'Montserrat', sans-serif; font-size: 16px; background: transparent; transition: border 0.2s ease; outline: none; color: #1a1a1a; text-align: left; }
+        .form-group select option { color: #1a1a1a; background: #ffffff; }
+        .form-group input:focus, .form-group select:focus { border-bottom-color: #1a1a1a; }
+        .radio-group { display: flex; gap: 25px; margin-top: 8px; flex-wrap: wrap; justify-content: flex-start; }
+        .radio-group label { display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 14px; color: #1a1a1a; }
+        .radio-group input { width: auto; margin: 0; accent-color: #1a1a1a; }
+        .submit-btn { display: block; width: 100%; background: #1a1a1a; color: white; border: none; padding: 14px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
+        .submit-btn:hover { background: #333; }
+        .hidden-message { text-align: center; margin-top: 20px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #1a1a1a; display: none; }
+
+        .contacts-screen {
+            background: #ffffff;
+            padding: 60px 20px 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.8, 0.4, 1), transform 0.9s cubic-bezier(0.25, 0.8, 0.4, 1);
+        }
+        .contacts-screen.visible { opacity: 1; transform: translateY(0); }
+        .contacts-container { max-width: 450px; margin: 0 auto; text-align: center; }
+        .contacts-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 15px; font-weight: 400; }
+        .contacts-subtitle { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 13px; 
+            font-weight: 300; 
+            letter-spacing: 1px; 
+            color: #777; 
+            margin-bottom: 35px; 
+            text-transform: none;
+            line-height: 1.5;
+        }
+        .contacts-list { display: flex; flex-direction: column; gap: 28px; margin-bottom: 45px; }
+        .contact-row { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 8px 15px; 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 14px; 
+            letter-spacing: 0.3px; 
+            flex-direction: column; 
+        }
+        .contact-role { font-weight: 500; color: #1a1a1a; text-transform: uppercase; font-size: 11px; letter-spacing: 1.5px; }
+        .contact-info a { color: #333; text-decoration: none; transition: color 0.2s; }
+        .contact-info a:hover { color: #6B705C; }
+        .contact-telegram { 
+            font-size: 12px; 
+            color: #555; 
+            margin-top: 4px;
+        }
+        .contacts-divider { width: 1px; height: 50px; background-color: #d0d0d0; margin: 0 auto 35px; }
+        .contacts-copyright { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1.5px; color: #aaa; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .name-line { font-size: 3.4rem; }
+            .ekaterina-name { margin-left: 104px; }
+        }
+        @media (max-width: 580px) {
+            .name-line { font-size: 2.8rem; }
+            .ekaterina-name { margin-left: 86px; }
+        }
+        @media (max-width: 480px) {
+            .name-line { font-size: 2.4rem; }
+            .ekaterina-name { margin-left: 74px; }
+            .contact-row { flex-direction: column; align-items: center; gap: 6px; }
+            .venue-name { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -301,7 +510,10 @@
                 <div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div>
                 <div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div>
                 <div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div>
-                <div class="day special-day"><svg class="heart-svg" viewBox="0 0 50 50"><path class="heart-path" d="M25,15 C21,8 11,9 11,18 C11,27 23,36 25,38 C27,36 39,27 39,18 C39,9 29,8 25,15 Z"/></svg>28</div>
+                <div class="day special-day">
+                    <svg class="heart-svg" viewBox="0 0 50 50"><path class="heart-path" d="M25,15 C21,8 11,9 11,18 C11,27 23,36 25,38 C27,36 39,27 39,18 C39,9 29,8 25,15 Z"/></svg>
+                    28
+                </div>
                 <div class="day">29</div><div class="day">30</div><div class="day">31</div>
             </div>
         </div>
@@ -311,10 +523,14 @@
 <div class="location-section" id="locationSection">
     <div class="location-bg"></div>
     <div class="location-card">
-        <div class="icon-scene"><svg viewBox="0 0 24 24" width="50" height="50"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#1a1a1a"/></svg></div>
+        <div class="icon-scene"><svg class="location-svg" viewBox="0 0 24 24" width="50" height="50"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#1a1a1a"/></svg></div>
         <h2 class="location-title">МЕСТО<br>ПРОВЕДЕНИЯ</h2>
         <div class="save-the-place">Save the place!</div>
-        <p class="venue-name">Royal Hall<br>Минская область, д. Чуденичи<br>ул. Лесная 2а</p>
+        <p class="venue-name">
+            Royal Hall<br>
+            Минская область, д. Чуденичи<br>
+            ул. Лесная 2а
+        </p>
         <a href="https://yandex.by/maps/org/usadba_royal_hall/1400112911/?ll=27.793345%2C54.137742&z=15" target="_blank" class="btn-maps">Как добраться</a>
     </div>
 </div>
@@ -345,16 +561,16 @@
         <h2 class="wishes-main-title anim-slide-up">Пожелания</h2>
         <div class="wishes-handwritten-subtitle anim-slide-up">Our wishes</div>
         <div class="slider-wrapper anim-slide-up">
-            <button class="slider-arrow arrow-left" id="prevBtn"><svg viewBox="0 0 24 24"><line x1="20" y1="12" x2="4" y2="12"/><polyline points="10 6 4 12 10 18"/></svg></button>
+            <button class="slider-arrow arrow-left" id="prevBtn"><svg viewBox="0 0 24 24"><line x1="20" y1="12" x2="4" y2="12"></line><polyline points="10 6 4 12 10 18"></polyline></svg></button>
             <div class="slider-content"><div class="slide-text active">Самое главное для нас — ваше присутствие в этот день!<br><br>Просим вас не дарить цветы: мы не сможем окружить их заботой, которую они заслуживают. Вместо букета будем рады бутылке вина с пожеланием, на какой праздник нам её открыть.</div><div class="slide-text">А если задумываетесь о подарке — мы будем очень благодарны за вклад в бюджет нашей молодой семьи. Это поможет осуществить наши общие мечты.</div></div>
-            <button class="slider-arrow arrow-right" id="nextBtn"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></button>
+            <button class="slider-arrow arrow-right" id="nextBtn"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg></button>
         </div>
         <div class="wishes-vertical-divider anim-fade-in"></div>
         <div class="pre-closing anim-slide-up">До скорой встречи!<br>С любовью</div>
         <div class="wishes-names-block">
-            <span class="name-item anim-slide-left">Илья</span>
-            <span class="ampersand-item anim-slide-left">&</span>
-            <span class="name-item anim-slide-right">Алина</span>
+            <span class="name-item anim-slide-left" id="artemWishes">Илья</span>
+            <span class="ampersand-item anim-slide-left" id="ampersandWishes">&</span>
+            <span class="name-item anim-slide-right" id="ekaterinaWishes">Алина</span>
         </div>
     </div>
 </div>
@@ -366,14 +582,40 @@
 <div class="rsvp-screen" id="rsvpScreen">
     <div class="rsvp-container">
         <h2 class="rsvp-title">Анкета гостя</h2>
-        <p style="font-family:'Montserrat',sans-serif; font-size:12px; text-align:center; margin-bottom:30px; color:#555;">Пожалуйста, заполняйте анкету от каждого члена семьи по отдельности</p>
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 12px; text-align: center; margin-bottom: 30px; color: #555;">Пожалуйста, заполняйте анкету от каждого члена семьи по отдельности, чтобы мы могли учесть все ваши пожелания</p>
         <form id="guestForm" action="https://formspree.io/f/xkoazyer" method="POST">
-            <div class="form-group"><label>Ваше имя и фамилия</label><input type="text" name="name" id="guestName" required></div>
-            <div class="form-group"><label>Планируете ли вы присутствовать?</label><div class="radio-group"><label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label><label><input type="radio" name="attendance" value="no"> К сожалению, нет</label></div></div>
-            <div class="form-group"><label>Есть ли у вас аллергия на что-либо?</label><input type="text" name="allergy"></div>
-            <div class="form-group"><label>Ваши предпочтения по алкоголю</label><select name="alcohol_preference"><option>Вино</option><option>Игристое</option><option>Виски</option><option>Водка</option><option>Коньяк</option><option>Не буду пить алкоголь</option></select></div>
-            <div class="form-group"><label>Нужен ли вам трансфер из Минска?</label><select name="transfer"><option>Да</option><option>Нет</option><option>Только в усадьбу</option><option>Только из усадьбы</option></select></div>
-            <div class="form-group"><label>Есть ли что-то, что вы хотели бы добавить?</label><input type="text" name="additional_info"></div>
+            <div class="form-group">
+                <label>Ваше имя и фамилия</label>
+                <input type="text" name="name" id="guestName" placeholder="Например, Анна Петрова" required>
+            </div>
+            <div class="form-group">
+                <label>Планируете ли вы присутствовать?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="attendance" value="yes" required> Да, с радостью!</label>
+                    <label><input type="radio" name="attendance" value="no"> К сожалению, нет</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Есть ли у вас аллергия на что-либо?</label>
+                <input type="text" name="allergy" placeholder="Укажите, если есть аллергия">
+            </div>
+            <div class="form-group">
+                <label>Ваши предпочтения по алкоголю</label>
+                <select name="alcohol_preference">
+                    <option value="Вино">Вино</option><option value="Игристое">Игристое</option><option value="Виски">Виски</option>
+                    <option value="Водка">Водка</option><option value="Коньяк">Коньяк</option><option value="Не буду пить алкоголь">Не буду пить алкоголь</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Нужен ли вам трансфер из Минска?</label>
+                <select name="transfer">
+                    <option value="Да">Да</option><option value="Нет">Нет</option><option value="Только в усадьбу">Только в усадьбу</option><option value="Только из усадьбы">Только из усадьбы</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Есть ли что-то, что вы хотели бы добавить или о чем нам нужно обязательно знать?</label>
+                <input type="text" name="additional_info" placeholder="Ваши пожелания...">
+            </div>
             <button type="submit" class="submit-btn">Отправить ответ</button>
             <div id="formMessage" class="hidden-message">Спасибо! Ждём вас на нашей свадьбе</div>
         </form>
@@ -385,7 +627,11 @@
         <h2 class="contacts-title">Контакты</h2>
         <div class="contacts-subtitle">остались вопросы?<br>Свяжитесь с нашим организатором</div>
         <div class="contacts-list">
-            <div class="contact-row"><span class="contact-role">Наш свадебный организатор</span><span class="contact-info"><a href="tel:+375333337012">+375 33 333 7012</a></span><div class="contact-telegram">Telegram: @Anna_LabirintGroup</div></div>
+            <div class="contact-row">
+                <span class="contact-role">Наш свадебный организатор</span>
+                <span class="contact-info"><a href="tel:+375333337012">+375 33 333 7012</a></span>
+                <div class="contact-telegram">Telegram: @Anna_LabirintGroup</div>
+            </div>
         </div>
         <div class="contacts-divider"></div>
         <div class="contacts-copyright">Илья и Алина</div>
@@ -394,62 +640,37 @@
 
 <script>
     (function() {
-        // Принудительная прокрутка ко второму экрану при первом скролле вниз
-        let secondRevealed = false;
-        const firstScreen = document.getElementById('firstScreen');
+        // Плавная прокрутка по клику на кнопку
+        const scrollBtn = document.getElementById('scrollBtn');
         const secondScreen = document.getElementById('secondScreen');
-        
-        function goToSecond() {
-            if (!secondRevealed && secondScreen) {
-                secondRevealed = true;
-                window.scrollTo({ top: secondScreen.offsetTop, behavior: 'smooth' });
-            }
+        if (scrollBtn && secondScreen) {
+            scrollBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: secondScreen.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
         }
         
-        // Обработчик колеса мыши
-        window.addEventListener('wheel', function(e) {
-            if (!secondRevealed && e.deltaY > 0) {
-                e.preventDefault();     // предотвращаем стандартную прокрутку, чтобы не было конфликта
-                goToSecond();
-            }
-        }, { passive: false });
-        
-        // Обработчик касания для мобильных
-        let touchStartY = 0;
-        window.addEventListener('touchstart', function(e) {
-            touchStartY = e.touches[0].clientY;
-        });
-        window.addEventListener('touchmove', function(e) {
-            if (!secondRevealed && e.touches[0].clientY < touchStartY) {
-                e.preventDefault();
-                goToSecond();
-            }
-        }, { passive: false });
-        
-        // Клик по кнопке
-        document.getElementById('scrollBtn')?.addEventListener('click', function(e) {
-            e.preventDefault();
-            goToSecond();
-        });
-        
-        // Анимация появления элементов первого экрана (без фоновой анимации фото)
-        setTimeout(() => {
-            document.getElementById('weddingScript')?.classList.add('visible');
-        }, 800);
-        setTimeout(() => {
-            document.getElementById('artemName')?.classList.add('visible');
-        }, 1400);
-        setTimeout(() => {
-            document.getElementById('ekaterinaName')?.classList.add('visible');
-        }, 1800);
-        setTimeout(() => {
-            document.getElementById('ampersand')?.classList.add('visible');
-        }, 2200);
-        
-        // Анимации остальных блоков (IntersectionObserver)
+        // Анимация первого экрана
+        const firstObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => document.getElementById('weddingScript')?.classList.add('visible'), 800);
+                    setTimeout(() => document.getElementById('artemName')?.classList.add('visible'), 1400);
+                    setTimeout(() => document.getElementById('ekaterinaName')?.classList.add('visible'), 1800);
+                    setTimeout(() => document.getElementById('ampersand')?.classList.add('visible'), 2200);
+                    firstObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.1 });
+        firstObserver.observe(document.getElementById('firstScreen'));
+
+        // Второй экран
         const secondContainer = document.querySelector('.invitation-container');
         if (secondContainer) {
-            new IntersectionObserver((entries) => {
+            let obs = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         document.querySelector('.title')?.classList.add('visible');
@@ -460,58 +681,171 @@
                         setTimeout(() => document.querySelectorAll('.dot').forEach(el => el.classList.add('visible')), 1200);
                         setTimeout(() => document.querySelector('.line-bottom')?.classList.add('visible'), 1500);
                         setTimeout(() => document.querySelector('.calendar-section')?.classList.add('visible'), 2000);
-                        observer.disconnect();
+                        obs.disconnect();
                     }
                 });
-            }, { threshold: 0.2 }).observe(secondContainer);
+            }, { threshold: 0.2 });
+            obs.observe(secondContainer);
+        }
+
+        // Локация
+        const locSec = document.getElementById('locationSection');
+        if (locSec) {
+            let locObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        locSec.classList.add('visible');
+                        locObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+            locObserver.observe(locSec);
         }
         
-        const locSec = document.getElementById('locationSection');
-        if (locSec) new IntersectionObserver(e => { if(e[0].isIntersecting) locSec.classList.add('visible'); observer.disconnect(); }, { threshold: 0.2 }).observe(locSec);
-        
+        // Тайминг
         const timeline = document.querySelector('.timeline-container');
-        if (timeline) new IntersectionObserver(e => { if(e[0].isIntersecting) { timeline.classList.add('visible'); document.querySelectorAll('.timeline-item').forEach((item,i)=>setTimeout(()=>item.classList.add('visible'),[200,600,1000,1400][i])); observer.disconnect(); } }, { threshold: 0.5 }).observe(timeline);
-        
+        if (timeline) {
+            let obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if(e.isIntersecting) {
+                        timeline.classList.add('visible');
+                        document.querySelectorAll('.timeline-item').forEach((item,i) => setTimeout(() => item.classList.add('visible'), [200,600,1000,1400][i]));
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+            obs.observe(timeline);
+        }
+
+        // Дресс-код
         const dressScreen = document.getElementById('dresscodeScreen');
-        if (dressScreen) new IntersectionObserver(e => { if(e[0].isIntersecting) { document.getElementById('dresscodeMainTitle')?.classList.add('visible'); document.getElementById('dresscodeDescription')?.classList.add('visible'); observer.disconnect(); } }, { threshold: 0.3 }).observe(dressScreen);
+        if (dressScreen) {
+            let drObs = new IntersectionObserver((e) => {
+                e.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        document.getElementById('dresscodeMainTitle')?.classList.add('visible');
+                        document.getElementById('dresscodeDescription')?.classList.add('visible');
+                        drObs.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            drObs.observe(dressScreen);
+        }
         
+        // Пожелания
         const wishesContainer = document.querySelector('.wishes-container');
         if (wishesContainer) {
-            let topObs = new IntersectionObserver(e => { if(e[0].isIntersecting) { document.querySelectorAll('.anim-slide-up').forEach(el=>el.classList.add('visible')); document.querySelector('.anim-fade-in')?.classList.add('visible'); topObs.disconnect(); } }, { threshold: 0.3 });
+            let topObs = new IntersectionObserver((e) => {
+                e.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        document.querySelectorAll('.anim-slide-up').forEach(el => el.classList.add('visible'));
+                        document.querySelector('.anim-fade-in')?.classList.add('visible');
+                        topObs.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
             topObs.observe(wishesContainer);
+            
             const leftEl = document.querySelectorAll('.anim-slide-left');
-            if(leftEl.length) new IntersectionObserver(e => { if(e[0].isIntersecting) leftEl.forEach(el=>el.classList.add('visible')); observer.disconnect(); }, { threshold: 0.6 }).observe(document.querySelector('.wishes-names-block'));
+            if(leftEl.length) {
+                let lObs = new IntersectionObserver((e) => {
+                    e.forEach(entry => {
+                        if(entry.isIntersecting) {
+                            leftEl.forEach(el => el.classList.add('visible'));
+                            lObs.disconnect();
+                        }
+                    });
+                }, { threshold: 0.6 });
+                lObs.observe(document.querySelector('.wishes-names-block'));
+            }
             const rightEl = document.querySelector('.anim-slide-right');
-            if(rightEl) new IntersectionObserver(e => { if(e[0].isIntersecting) rightEl.classList.add('visible'); observer.disconnect(); }, { threshold: 0.6 }).observe(rightEl);
+            if(rightEl) {
+                let rObs = new IntersectionObserver((e) => {
+                    e.forEach(entry => {
+                        if(entry.isIntersecting) {
+                            rightEl.classList.add('visible');
+                            rObs.disconnect();
+                        }
+                    });
+                }, { threshold: 0.6 });
+                rObs.observe(rightEl);
+            }
         }
-        
-        const finalPhoto = document.getElementById('finalPhotoBlock');
-        if(finalPhoto) new IntersectionObserver(e => { if(e[0].isIntersecting) finalPhoto.classList.add('visible'); observer.disconnect(); }, { threshold: 0.3 }).observe(finalPhoto);
-        
-        const rsvp = document.getElementById('rsvpScreen');
-        if(rsvp) new IntersectionObserver(e => { if(e[0].isIntersecting) rsvp.classList.add('visible'); observer.disconnect(); }, { threshold: 0.2 }).observe(rsvp);
-        
-        const contacts = document.getElementById('contactsScreen');
-        if(contacts) new IntersectionObserver(e => { if(e[0].isIntersecting) contacts.classList.add('visible'); observer.disconnect(); }, { threshold: 0.2 }).observe(contacts);
+
+        // Финальное фото
+        const finalPhotoDiv = document.getElementById('finalPhotoBlock');
+        if (finalPhotoDiv) {
+            let photoObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        finalPhotoDiv.classList.add('visible');
+                        photoObs.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            photoObs.observe(finalPhotoDiv);
+        }
+
+        // Анкета
+        const rsvpScreen = document.getElementById('rsvpScreen');
+        if (rsvpScreen) {
+            let rsvpObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        rsvpScreen.classList.add('visible');
+                        rsvpObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+            rsvpObserver.observe(rsvpScreen);
+        }
+
+        // Контакты
+        const contactsScreen = document.getElementById('contactsScreen');
+        if (contactsScreen) {
+            let contactsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        contactsScreen.classList.add('visible');
+                        contactsObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+            contactsObserver.observe(contactsScreen);
+        }
         
         // Слайдер
         const slides = document.querySelectorAll('.slide-text');
-        const prevBtn = document.getElementById('prevBtn'), nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
         let currentSlide = 0;
         if(slides.length && prevBtn && nextBtn) {
-            const showSlide = (i) => { slides[currentSlide].classList.remove('active'); currentSlide = (i+slides.length)%slides.length; slides[currentSlide].classList.add('active'); };
+            const showSlide = (i) => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (i + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+            };
             prevBtn.onclick = () => showSlide(currentSlide-1);
             nextBtn.onclick = () => showSlide(currentSlide+1);
         }
-        
+
         // Форма
-        const form = document.getElementById('guestForm'), msgDiv = document.getElementById('formMessage');
-        if(form) {
+        const form = document.getElementById('guestForm');
+        const messageDiv = document.getElementById('formMessage');
+        if (form) {
             form.addEventListener('submit', function(e) {
-                if(!document.getElementById('guestName').value.trim()) { e.preventDefault(); alert('Пожалуйста, укажите ваше имя'); return; }
-                msgDiv.style.display = 'block';
-                setTimeout(() => msgDiv.style.opacity='1', 10);
-                setTimeout(() => { msgDiv.style.display='none'; msgDiv.style.opacity='0'; }, 4000);
+                const nameInput = document.getElementById('guestName');
+                if (nameInput && !nameInput.value.trim()) {
+                    e.preventDefault();
+                    alert('Пожалуйста, укажите ваше имя');
+                    return;
+                }
+                messageDiv.style.display = 'block';
+                setTimeout(() => { messageDiv.style.opacity = '1'; }, 10);
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                    messageDiv.style.opacity = '0';
+                }, 4000);
             });
         }
     })();
