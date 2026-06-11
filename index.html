@@ -384,7 +384,6 @@
         }
         .empty-day { visibility: hidden; }
 
-        /* Сердце: расширенное вширь, тонкая обводка, чуть выше */
         .heart-svg {
             position: absolute;
             width: 48px;
@@ -400,7 +399,7 @@
             fill: none;
         }
 
-        /* ----- ЛОКАЦИЯ (ч/б фон, белая карточка) ----- */
+        /* ----- ЛОКАЦИЯ ----- */
         .location-section {
             position: relative;
             max-width: 450px;
@@ -475,7 +474,7 @@
         }
         .btn-maps:hover { background: #333; }
 
-        /* ----- ТАЙМИНГ ----- */
+        /* ----- ТАЙМИНГ (обновленный) ----- */
         .timeline-screen { background: #fff; padding: 50px 20px 60px; }
         .timeline-container { max-width: 400px; margin: 0 auto; text-align: center; }
         .timeline-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: clamp(1.8rem,4.5vw,2.2rem); text-transform: uppercase; letter-spacing: 6px; }
@@ -494,7 +493,7 @@
         .dresscode-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: 42px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px; }
         .dresscode-description { font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.7; color: #333; max-width: 340px; margin: 0 auto; }
 
-        /* ----- ПОЖЕЛАНИЯ ----- */
+        /* ----- ПОЖЕЛАНИЯ (без фото пары) ----- */
         .wishes-screen { background: #fff; padding: 60px 20px 40px; }
         .wishes-container { max-width: 450px; margin: 0 auto; text-align: center; }
         .wishes-main-title { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 400; font-size: 42px; text-transform: uppercase; letter-spacing: 4px; }
@@ -512,8 +511,6 @@
         .wishes-names-block { display: flex; flex-direction: column; align-items: center; margin-bottom: 45px; }
         .name-item { font-family: 'Lighthaus', 'Quicksand', sans-serif; font-weight: 300; font-size: 46px; text-transform: uppercase; letter-spacing: 5px; color: #121212; }
         .ampersand-item { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; font-weight: 400; margin: 12px 0; }
-        .couple-photo-container { width: 100%; max-width: 450px; margin: 0 auto; padding: 0 10px; }
-        .couple-photo { width: 100%; aspect-ratio: 3 / 2.4; background-image: url('главная.png'); background-size: cover; background-position: center 35%; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
 
         /* ----- АНКЕТА ----- */
         .rsvp-screen { background: #fff; padding: 60px 20px; }
@@ -552,7 +549,7 @@
         .contacts-divider { width: 1px; height: 50px; background: #d0d0d0; margin: 0 auto 35px; }
         .contacts-copyright { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1.5px; color: #aaa; text-transform: uppercase; }
 
-        /* Анимация для анкеты и контактов (все элементы одновременно) */
+        /* Анимации */
         .rsvp-animate, .contacts-animate {
             opacity: 0;
             transform: translateY(40px);
@@ -640,16 +637,17 @@
     </div>
 </div>
 
+<!-- ОБНОВЛЕННЫЙ ТАЙМИНГ: 15:30 сбор, 16:00 регистрация, 17:30 банкет, 00:00 трансфер -->
 <div class="timeline-screen" id="timelineScreen">
     <div class="timeline-container">
         <h2 class="timeline-main-title fade-up">Тайминг</h2>
         <div class="timeline-subtitle fade-up">Of the day</div>
         <div class="timeline-middle-line"></div>
         <div class="timeline-list">
-            <div class="timeline-item slide-left"><div class="time">15:00</div><div class="timeline-desc">Сбор гостей, фуршет</div></div>
+            <div class="timeline-item slide-left"><div class="time">15:30</div><div class="timeline-desc">Сбор гостей, фуршет</div></div>
             <div class="timeline-item slide-left"><div class="time">16:00</div><div class="timeline-desc">Торжественная регистрация</div></div>
-            <div class="timeline-item slide-right"><div class="time">17:30</div><div class="timeline-desc">Праздничный ужин</div></div>
-            <div class="timeline-item slide-right"><div class="time">22:30</div><div class="timeline-desc">Завершение вечера</div></div>
+            <div class="timeline-item slide-right"><div class="time">17:30</div><div class="timeline-desc">Праздничный банкет</div></div>
+            <div class="timeline-item slide-right"><div class="time">00:00</div><div class="timeline-desc">Трансфер для гостей</div></div>
         </div>
     </div>
 </div>
@@ -680,7 +678,7 @@
             <span class="ampersand-item fade-up">&</span>
             <span class="name-item fade-up">Алина</span>
         </div>
-        <div class="couple-photo-container fade-up" id="finalPhoto"><div class="couple-photo"></div></div>
+        <!-- ФОТО ПАРЫ УДАЛЕНО ПО ЗАПРОСУ -->
     </div>
 </div>
 
@@ -708,7 +706,6 @@
     <div class="contacts-container">
         <h2 class="contacts-title contacts-animate">Контакты</h2>
         <div class="contacts-subtitle contacts-animate">Остались вопросы? Обратитесь к нашему организатору</div>
-        
         <div class="contacts-list">
             <div class="contact-item contacts-animate">
                 <div class="contact-role">Наш свадебный организатор</div>
@@ -723,7 +720,6 @@
 
 <script>
     (function() {
-        // Первый экран
         const firstObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -738,7 +734,6 @@
         }, { threshold: 0.1 });
         firstObserver.observe(document.getElementById('firstScreen'));
 
-        // Обычные fade-up элементы
         const fadeElements = document.querySelectorAll('.fade-up');
         const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -750,7 +745,6 @@
         }, { threshold: 0.15, rootMargin: "0px 0px -30px 0px" });
         fadeElements.forEach(el => fadeObserver.observe(el));
 
-        // Анимация анкеты (все элементы сразу)
         const rsvpAnimate = document.querySelectorAll('.rsvp-animate');
         if (rsvpAnimate.length) {
             const rsvpObserver = new IntersectionObserver((entries) => {
@@ -765,7 +759,6 @@
             if (rsvpContainer) rsvpObserver.observe(rsvpContainer);
         }
 
-        // Анимация контактов (все элементы сразу)
         const contactsAnimate = document.querySelectorAll('.contacts-animate');
         if (contactsAnimate.length) {
             const contactsObserver = new IntersectionObserver((entries) => {
@@ -780,7 +773,6 @@
             if (contactsContainer) contactsObserver.observe(contactsContainer);
         }
 
-        // Календарь и линии
         const secondContainer = document.querySelector('.invitation-container');
         if (secondContainer) {
             const obs = new IntersectionObserver((entries) => {
@@ -798,7 +790,6 @@
             obs.observe(secondContainer);
         }
 
-        // Тайминг
         const timelineContainer = document.querySelector('.timeline-container');
         if (timelineContainer) {
             const obs = new IntersectionObserver((entries) => {
@@ -812,7 +803,6 @@
             obs.observe(timelineContainer);
         }
 
-        // Слайдер
         const slides = document.querySelectorAll('.slide-text');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -823,12 +813,10 @@
             nextBtn.onclick = () => showSlide(currentSlide+1);
         }
 
-        // Скролл
         document.getElementById('scrollBtn')?.addEventListener('click', () => { 
             document.getElementById('secondScreen')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
         });
 
-        // Форма
         const form = document.getElementById('guestForm');
         const messageDiv = document.getElementById('formMessage');
         if (form) {
