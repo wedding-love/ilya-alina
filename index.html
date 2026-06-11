@@ -23,6 +23,14 @@
             font-style: normal;
             font-display: swap;
         }
+        
+        @font-face {
+            font-family: 'Lighthaus';
+            src: url('Lighthaus.otf') format('opentype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
 
         * {
             margin: 0;
@@ -33,21 +41,23 @@
         html, body {
             width: 100%;
             overflow-x: hidden;
-            scroll-behavior: auto; /* естественная прокрутка без плавности */
+            scroll-behavior: auto;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #ffffff;
-            -webkit-overflow-scrolling: touch; /* плавность на iOS */
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: none;
         }
 
-        /* ПЕРВЫЙ ЭКРАН — без overflow:hidden, с фоновым изображением */
+        /* ПЕРВЫЙ ЭКРАН — исправленный, без overflow:hidden */
         .first-screen {
             position: relative;
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
+            min-height: 100vh;
             background-image: url('главная.png');
             background-size: cover;
             background-position: center 30%;
@@ -60,7 +70,7 @@
             padding: 2rem;
         }
 
-        /* Затемнение через псевдоэлемент */
+        /* Затемняющая вуаль через псевдоэлемент */
         .first-screen::before {
             content: '';
             position: absolute;
@@ -82,6 +92,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            flex: 1;
         }
 
         .wedding-script {
@@ -168,8 +179,13 @@
 
         .arrow-icon-svg { margin-left: 8px; width: 11px; height: 11px; stroke: #1a1a1a; }
 
-        /* ВТОРОЙ ЭКРАН И ОСТАЛЬНЫЕ БЛОКИ */
-        .second-screen { width: 100%; background: #fff; padding: 60px 20px; }
+        .second-screen {
+            width: 100%;
+            background: #fff;
+            padding: 60px 20px;
+            margin-top: -1px;
+            position: relative;
+        }
         .invitation-container { text-align: center; max-width: 400px; margin: 0 auto; }
         .title {
             font-family: 'Lighthaus', 'Quicksand', sans-serif;
@@ -640,7 +656,7 @@
 
 <script>
     (function() {
-        // Плавная прокрутка по клику на кнопку
+        // Плавная прокрутка при клике на кнопку
         const scrollBtn = document.getElementById('scrollBtn');
         const secondScreen = document.getElementById('secondScreen');
         if (scrollBtn && secondScreen) {
@@ -664,7 +680,7 @@
                     firstObserver.disconnect();
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05, rootMargin: "0px 0px -10% 0px" });
         firstObserver.observe(document.getElementById('firstScreen'));
 
         // Второй экран
@@ -684,7 +700,7 @@
                         obs.disconnect();
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.05, rootMargin: "0px 0px -10% 0px" });
             obs.observe(secondContainer);
         }
 
@@ -698,7 +714,7 @@
                         locObserver.disconnect();
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.1 });
             locObserver.observe(locSec);
         }
         
@@ -713,7 +729,7 @@
                         obs.disconnect();
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { threshold: 0.2 });
             obs.observe(timeline);
         }
 
@@ -728,7 +744,7 @@
                         drObs.disconnect();
                     }
                 });
-            }, { threshold: 0.3 });
+            }, { threshold: 0.2 });
             drObs.observe(dressScreen);
         }
         
@@ -743,7 +759,7 @@
                         topObs.disconnect();
                     }
                 });
-            }, { threshold: 0.3 });
+            }, { threshold: 0.2 });
             topObs.observe(wishesContainer);
             
             const leftEl = document.querySelectorAll('.anim-slide-left');
@@ -755,7 +771,7 @@
                             lObs.disconnect();
                         }
                     });
-                }, { threshold: 0.6 });
+                }, { threshold: 0.4 });
                 lObs.observe(document.querySelector('.wishes-names-block'));
             }
             const rightEl = document.querySelector('.anim-slide-right');
@@ -767,7 +783,7 @@
                             rObs.disconnect();
                         }
                     });
-                }, { threshold: 0.6 });
+                }, { threshold: 0.4 });
                 rObs.observe(rightEl);
             }
         }
@@ -782,7 +798,7 @@
                         photoObs.disconnect();
                     }
                 });
-            }, { threshold: 0.3 });
+            }, { threshold: 0.2 });
             photoObs.observe(finalPhotoDiv);
         }
 
@@ -796,7 +812,7 @@
                         rsvpObserver.disconnect();
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.1 });
             rsvpObserver.observe(rsvpScreen);
         }
 
@@ -810,7 +826,7 @@
                         contactsObserver.disconnect();
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.1 });
             contactsObserver.observe(contactsScreen);
         }
         
